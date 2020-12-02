@@ -1,0 +1,55 @@
+<view class="container">
+  <!-- 店铺 -->
+  <view class="wrapper flex_box">
+    <image class="store_logo" src="{{refundData.store_logo}}"></image>
+    <text>{{refundData.store_name}}</text>
+  </view>
+  <!-- 退款详情 -->
+  <view class="wrapper">
+    <view class="refund_money">
+      退款金额：
+      <text>¥{{refundData.actual_money}}</text>
+    </view>
+    <view class="refund_reason">现金退款方式：原路返回</view>
+    <view class="refund_time">1-3个工作日内退款到原支付方</view>
+  </view>
+
+  <!-- 上传图片 -->
+  <!-- <view class="wrapper">
+    <view class="wrapper_title">添加照片</view>
+    <upload-img orderId="{{refundData.order_id}}" />
+  </view> -->
+
+  <!-- 退款原因 -->
+  <view class="wrapper">
+    <view class="wrapper_title">退款原因</view>
+    <radio-group bindchange="radioChange">
+      <view class="reason_item">
+        <text>买多了/不想要</text>
+        <radio value="买多了/不想要" />
+      </view>
+      <view class="reason_item">
+        <text>协商一致退款</text>
+        <radio value="协商一致退款" />
+      </view>
+      <view class="reason_item">
+        <text>去过了，不太满意</text>
+        <radio value="去过了，不太满意" />
+      </view>
+      <view class="reason_item">
+        <text>联系不上商家</text>
+        <radio value="联系不上商家" />
+      </view>
+      <view class="reason_item">
+        <text>商家停业/装修/转让</text>
+        <radio value="商家停业/装修/转让" />
+      </view>
+      <view class="reason_item no_bottom">
+        <text>其他</text>
+        <radio value="其他" />
+      </view>
+    </radio-group>
+  </view>
+
+  <view class="refund_submit" bindtap="submitRefundInfo">提交</view>
+</view>

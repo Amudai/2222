@@ -1,0 +1,37 @@
+<import src="/template/wxml/waterfall.wxml" />
+
+<!-- <template is="head" data="{{titlename,redBack}}"></template> -->
+<!-- <image mode="aspectFit" src="../../images/back.png" class="toHome" bindtap="toHome"></image> -->
+<!-- <van-nav-bar title="申请进度"  left-text="返回" fixed="{{false}}"  left-arrow custom-style="background: #D63341;" title-class="title" bind:click-left="onClickLeft" /> -->
+<view class="container">
+  <view class="wrapper flex_box">
+    <view class="title" wx:if="{{refundData.order_status === 6}}">等待商家处理</view>
+    <view class="title" wx:if="{{refundData.order_status === 7}}">商家已退款</view>
+    <view class="title" wx:if="{{refundData.order_status === 8}}">退款失败</view>
+    <view class="phone">客服电话：400-1819-111</view>
+  </view>
+
+  <view class="wrapper font">
+    <view>您已成功发起退款申请，请耐心等待商家处理</view>
+    <view class="tips">如果商家长时间未处理请联系在线客服或者拨打客户电话</view>
+    <view>其他退款详情可到店咨询</view>
+  </view>
+
+  <view class="wrapper">
+    <view class="wrapper_title">退款信息</view>
+    <view class="store_info_wrapper">
+      <image class="store_logo" src="{{refundData.store_logo}}"></image>
+      <view class="store_info">
+        <view class="store_name">{{refundData.store_name}}</view>
+        <view class="order_time">下单时间：{{refundData.order_time}}</view>
+        <view class="order_time">实付支付金额：¥{{refundData.amount}}</view>
+      </view>
+    </view>
+    <view class="cell">退款原因：{{refundData.reason}}</view>
+    <view class="cell">退款金额：{{refundData.amount}}</view>
+    <view class="cell">申请时间：{{refundData.add_time}}</view>
+    <view class="cell">退回账户：{{refundData.paid_type}}</view>
+    <!-- <view class="cell">图片说明：</view> -->
+  </view>
+  <view class="cancelRefund" bindtap="cancelRefund" wx:if="{{refundData.order_status === 6}}">取消退款</view>
+</view>

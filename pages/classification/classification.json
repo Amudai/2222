@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "store-item":"/component/storeItem/storeItem"
+  },
+  "navigationBarTitleText": "分类"
+}

@@ -1,0 +1,7 @@
+{
+  "navigationBarTextStyle": "white",
+  "navigationBarTitleText": "订单",
+  "usingComponents": {
+    "table-code-alert": "/component/TableCodeAlert/TableCodeAlert"
+  }
+}

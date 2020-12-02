@@ -1,0 +1,25 @@
+ @import "/template/wxss/waterfall.wxss";  
+.backhome{
+  display: none;
+}
+.me {
+  width: 100%;
+  height: 100vh;
+  background: #efefef;
+  padding: 20rpx 20rpx 100rpx 20rpx;
+  box-sizing: border-box;
+}
+.item-list {
+  width: 710rpx;
+  height: 140rpx;
+  background: #fff;
+  border-radius: 10rpx;
+  margin: 0 auto 20rpx auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.quan {
+  margin-left: 40rpx
+}

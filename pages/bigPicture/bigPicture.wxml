@@ -1,0 +1,11 @@
+<!--pages/bigPicture/bigPicture.wxml-->
+<view>
+   <swiper indicator-dots="{{indicatorDots}}"
+        autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
+        <block wx:for="{{src}}" wx:key="*this">
+          <swiper-item>
+            <image src="{{item}}" catchtap="back"></image>
+          </swiper-item>
+        </block>
+      </swiper>
+</view>

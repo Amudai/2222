@@ -1,0 +1,158 @@
+<import src="/template/wxml/waterfall.wxml" />
+<view class="container">
+	<scroll-view class="wrap" scroll-y='true' style="height:{{wrapH}}px">
+		<view class="topBackground paidText">待付款</view>
+		<view class="topBackground paidText" wx:if='{{order_status==1}}'>待付款</view>
+		<view class="topBackground paidText" wx:if='{{order_status==2}}'>待使用</view>
+		<view class="topBackground paidText" wx:if='{{order_status==3}}'>待评价</view>
+		<view class="topBackground paidText" wx:if='{{order_status==4}}'>已评价</view>
+		<view class="topBackground paidText" wx:if='{{order_status==5}}'>已取消</view>
+		<view class="topBackground paidText" wx:if='{{order_status==6}}'>待退款</view>
+		<view class="topBackground paidText" wx:if='{{order_status==7}}'>退款完成</view>
+		<view class="topBackground paidText" wx:if='{{order_status==8}}'>退款失败</view>
+		<view class="storePanel flexbox ">
+			<image class="storeInco" src="{{store_logo?store_logo:'../../images/noImg.png'}}"></image>
+
+			<view class="storePanel_detail">
+				<view class="{{msg?'':'mtop'}}">
+					<view class="storeName">{{store_name}}</view>
+					<text class="useTime" wx:if='{{!business_hours}}'>下单时间：{{add_time}}</text>
+					<text class="useTime" wx:if='{{business_hours}}'>营业时间：{{business_hours}}</text>
+				</view>
+				<view class="timeOut" wx:if="{{msg}}">请在
+					<text class="timeStyle">{{msg}}内</text>完成支付</view>
+			</view>
+			<navigator url="../storeDetails/storeDetails?store_id={{store_id}}&fromorder=1">
+				<text class="enter">进入店铺</text>
+				<text class="enterInco">></text>
+			</navigator>
+		</view>
+		<view class="heightline"></view>
+		<view class="code radiusbox flexbox spaceBetween" wx:if="{{order_status==2}}">
+			<view class="code_info">
+				<view class="codenum">{{order_code}}</view>
+			</view>
+
+			<view class="mode">
+				<image class="aspectFit" wx:for="{{myQrcodeSrc}}" wx:key='index' mode="aspectFit" src="{{item}}" bindtap="tapQrcode"></image>
+			</view>
+		</view>
+
+		<view class="order_detail radiusbox  ">
+			<view class="detail_title">
+				<view class="leftline"></view> 套餐详情
+			</view>
+			<view class="order_sec_title">全部</view>
+			<block wx:for='{{orderList}}' wx:key='index'>
+				<view class="order_detail_content flex_row flexbox spaceBetween">
+					<view>{{item.goods_name}}</view>
+					<view>{{item.goods_price}}</view>
+				</view>
+				<view class="order_detail_content flex_row flexbox spaceBetween">
+					<text wx:if="{{item.goods_num}}">x{{item.goods_num}}</text>
+					<text wx:if="{{item.goods_attributes}}">{{item.goods_attributes}}</text>
+				</view>
+			</block>
+		</view>
+		<view class="remark radiusbox " wx:if="{{order_status==1}}">
+			<view class="order_detail_content table flexbox spaceBetween">
+				<view>人数</view>
+				<input type="text" class="remark_input" placeholder-class="place-holder" type='digit' placeholder="请填写人数" bindinput="table_number" value="{{people_number}}" data-index='1' bindblur='bindblur'></input>
+			</view>
+			<view class="order_detail_content table flexbox spaceBetween" wx:if="{{categoryIs1 == 'true'}}">
+				<view>桌号</view>
+				<input type="text" class="remark_input" placeholder-class="place-holder" placeholder="请填写桌号" bindinput="table_number" value="{{table_number}}" data-index='2'></input>
+			</view>
+			<view class="order_detail_content flexbox spaceBetween">
+				<view>备注</view>
+				<view class="remark_textarea flexbox">
+					<textarea class="inputRemarks" value="{{textareaValue}}" placeholder="请填写备注信息" placeholder-class="place-holder" bindinput="handleContentInput"></textarea>
+					<image wx:if="{{textareaValue.length>0}}" class="clear" src="../../images/report/de.png" bindtap="clearInput"></image>
+				</view>
+			</view>
+			<!-- <van-field label="人数" type="digit" model:value="{{ canweifeiMessageObject.people_num }}" placeholder="请填写人数" bind:change="table_number" />
+			<van-field label="桌号" model:value="{{ canweifeiMessageObject.people_num }}" placeholder="请填写人数" bind:change="table_number" />
+			<van-field label="备注" model:value="{{ userInput }}" style="width:560rpx;z-index:1" bind:change="onChangeRemark" placeholder="备注" type="textarea" placeholder="请填写备注信息" autosize /> -->
+			<view class="order_detail_content flexbox spaceBetween" wx:if="{{address}}">
+				<view>配送地址</view>
+				<view class="remark_textarea flexbox">
+					{{address}}
+				</view>
+			</view>
+		</view>
+		<view class="money_detail radiusbox  ">
+			<view class="detail_title">
+				<view class="leftline"></view> 账单详情
+			</view>
+
+			<view class="money_detail_content">
+				<view class="moneyDetails flexbox spaceBetween">订单原价
+					<text class="money">¥{{account_money}}</text>
+				</view>
+
+				<view class="moneyDetails flexbox spaceBetween">福豆奖励
+					<text class="money">{{give_bean}}个</text>
+				</view>
+				<view class="moneyDetails flexbox spaceBetween" wx:if='{{redpacket.money}}'>
+					福豆抵扣
+					<text class="money pink">-¥{{redpacket['money']}}</text>
+				</view>
+			</view>
+			<view class="actualPay flexbox spaceBetween">
+				<view>实付金额</view>
+				<view class="pink">¥{{actual_money}}</view>
+			</view>
+		</view>
+
+		<view class="order_other radiusbox  " wx:if='{{order_status !=1}}'>
+			<view class="detail_title">
+				<view class="leftline"></view> 订单信息
+			</view>
+
+			<view class="order_other_detail_content">
+				<view class="flexbox spaceBetween other_item">
+					<view>下单时间</view>
+					<text>{{add_time}}</text>
+				</view>
+				<view class="flexbox spaceBetween other_item">
+					<view>支付方式</view>
+					<text>微信支付</text>
+				</view>
+				<view class="flexbox spaceBetween other_item">
+					<view>订单号</view>
+					<view>
+						<text>{{order_sn}}</text>
+						<text class="button" bindtap="copy">复制</text> </view>
+				</view>
+				<view class="flexbox spaceBetween other_item" wx:if="{{order_type=='2'&&arriveStoreTime}}">
+					<view>预计到店时间</view>
+					<text>{{arriveStoreTime}}</text>
+				</view>
+				<view class="flexbox spaceBetween other_item" wx:if="{{people_number}}">
+					<view>人数</view>
+					<text>{{people_number}}人</text>
+				</view>
+				<view class="flexbox spaceBetween other_item">
+					<view>桌号</view>
+					<text>{{table_number}}</text>
+				</view>
+				<view class="flexbox spaceBetween other_item" wx:if="{{order_type=='3'&&address}}">
+					<view>配送地址</view>
+					<text class="blockw">{{address}}</text>
+				</view>
+				<view class="flexbox spaceBetween other_item">
+					<view>备注</view>
+					<text class="blockw">{{textareaValue}}</text>
+				</view>
+			</view>
+		</view>
+		<view class="order_button flexbox">
+			<text class="cancleOrder" bindtap="cancleOrder" wx:if='{{order_status==1}}'>取消订单</text>
+			<text class="payForWechat" bindtap="wetchatPay" wx:if='{{order_status==1}}'>立即支付</text>
+			<!-- <text class="to_refund" bindtap="toRefund" wx:if='{{order_status ==2}}' data-index="3">申请退款</text> -->
+			<text class="to_refund_long {{order_status==3?'width_340':'width_702'}}" bindtap="toRefund" wx:if='{{trade_status ==2&&(order_status != 6&&order_status != 7&&order_status != 8)}}'>申请退款</text>
+			<text class="to_refund_long width_702" bindtap="toRefundProcess" wx:if='{{order_status == 6||order_status == 7||order_status == 8}}'>查看退款进度</text>
+			<text class="to_evaluate {{trade_status==2?'width_340':'width_702'}}" bindtap="toForum" wx:if='{{order_status==3}}' data-index="3">评 价</text>
+		</view>
+	</scroll-view>
+</view>

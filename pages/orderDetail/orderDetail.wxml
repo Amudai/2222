@@ -1,0 +1,73 @@
+<view class="container">
+  <view class="wrapper flex sb-ai">
+    <view class="store_name">
+      <view>{{orderDetail.store_name}}</view>
+      <view class="mt-10">桌号：{{orderDetail.table_no}}</view>
+    </view>
+    <view class="flex sb-ai">
+      <view class="van-hairline--left"></view>
+      <view class="flex flex-c sb-ai" bindtap="showPopup">
+        <image class="code_img" src="/images/business/code.png"></image>
+        <text class="code_tips">收款码</text>
+      </view>
+    </view>
+  </view>
+  <!-- 已点商品 -->
+  <view class="wrapper">
+    <view class="flex sb-ai">
+      <view class="cell_title">已点商品</view>
+      <view class="order_status">{{orderDetail.status_name}}</view>
+    </view>
+    <view class="goods_info" wx:for="{{goodsInfo}}" wx:key="id">
+      <view class="goods_name flex sb-ai">
+        <view>{{item.goods_name}}</view>
+        <view>¥ {{item.goods_price}}</view>
+      </view>
+      <view class="goods_num flex sb-ai">
+        <view>x {{item.goods_num}}</view>
+        <view>{{item.goods_attributes}}</view>
+      </view>
+    </view>
+
+    <view class="show_more flex ct-ai" wx:if="{{!showMore && orderDetail.goods_info.length > 4}}" bindtap="showMore">展开更多</view>
+     <view class="show_more flex ct-ai" wx:if="{{showMore}}" bindtap="closeMore">收起更多</view>
+    <view class="left_ball"></view>
+    <view class="right_ball"></view>
+
+    <view class="goods_money flex sb-ai mt-30">
+      <view>订单金额</view>
+      <view>￥ {{orderDetail.pay_amount}}</view>
+    </view>
+    <view class="goods_money flex sb-ai mt-10 mb-20">
+      <view>返豆个数</view>
+      <view>{{orderDetail.give_bean}} 个</view>
+    </view>
+  </view>
+  <!-- 订单信息 -->
+  <view class="wrapper" style="margin-bottom: 140rpx">
+    <view class="cell_title mb-20">订单信息</view>
+    <view class="order_cell flex sb-ai fs-28 cl-3">
+      <view>下单时间</view>
+      <view>{{orderDetail.created_at}}</view>
+    </view>
+    <view class="order_cell flex sb-ai fs-28 cl-3">
+      <view>订单编号</view>
+      <view>{{orderDetail.order_sn}}</view>
+    </view>
+    <view class="wrapper_title mt-20">备注</view>
+    <text>{{orderDetail.remark}}</text>
+  </view>
+
+  <view class="btn_wrapper" wx:if="{{orderDetail.status == 0}}">
+    <view class="cancle-btn flex ct-ai" bindtap="handleCanelOrder">取消订单</view>
+    <view class="print-btn flex ct-ai" bindtap="handlePrintOrder">打印订单</view>
+  </view>
+  <view class="btn_wrapper" wx:else>
+    <view class="print-btn flex ct-ai long" bindtap="handlePrintOrder">打印订单</view>
+  </view>
+  <!-- 二维码弹窗 -->
+  <van-popup custom-style="background: none;" show="{{ show }}" bind:close="onClose">
+    <image class="code_img_big" src="{{orderDetail.qrcode_url}}"></image>
+    <view class="code_img_tips">扫码付款，领取礼券</view>
+  </van-popup>
+</view>

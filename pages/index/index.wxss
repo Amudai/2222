@@ -1,0 +1,72 @@
+
+ @import "/template/wxss/waterfall.wxss"; 
+ .logs .center{
+   text-align: center;
+   color: #999999;
+   font-size: 30rpx;
+   margin-bottom: 40rpx;
+ }
+ .center text{
+   font-size: 18rpx;
+   margin-left: 1em;
+ }
+ .logo_bg {
+   width: 501rpx;
+   height: 720rpx;
+   margin-bottom: 60rpx;
+   margin-top: 40rpx;
+ }
+.logs button{
+  width: 702rpx;
+  height: 88rpx;
+  line-height: 2.1;
+  background:#D63341;
+  border-radius:20rpx;
+  margin-bottom: 32rpx;
+  color: #FFFFFF;
+}
+.logimg{
+  width: 368rpx;
+  height: 584rpx;
+  margin: 180rpx 0 132rpx;
+}
+.logs .donot{
+  background-color: #F4C41F;
+}
+button::after{
+  border: 0;
+}
+.toIndex{
+  /*width:80%;*/
+  float:right;
+  margin-right: 5%;
+  color:rgba(102,102,102,1);
+}
+.desc {
+  width: 80%;
+  padding-left: 100rpx;
+  height: 100rpx;
+  margin-top: 20rpx;
+}
+.desc .li{
+  width: 100%;
+  height:60rpx;
+  line-height: 18rpx;
+}
+.desc image{
+  width: 18rpx;
+  height: 18rpx;
+  margin:0 10rpx 0 0;
+  vertical-align: middle;
+}
+.desc .li view{
+  width:90%;
+  height: 18rpx;
+  font-size: 12px;
+  color: #C6C4C4;
+}
+button{
+  display: flex;
+  align-items: center;
+  justify-content: center
+}

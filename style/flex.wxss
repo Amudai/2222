@@ -1,0 +1,25 @@
+.flex {
+  display: flex;
+}
+
+.flex-c {
+  flex-direction: column;
+}
+
+.sb {
+  justify-content: space-between;
+}
+
+.ai {
+  align-items: center;
+}
+
+.sb-ai {
+  justify-content: space-between;
+  align-items: center;
+}
+
+.ct-ai {
+  justify-content: center;
+  align-items: center;
+}

@@ -1,0 +1,363 @@
+<van-nav-bar title="店铺详情" left-text="返回" fixed="{{false}}" left-arrow custom-style="background: #D63341;"
+	title-class="title" bind:click-left="onClickLeft" />
+
+<!--商品规格详情弹窗-->
+<specification-alert wx:if='{{specificationAlertIsShow}}' goodsObject='{{goods}}' bind:event="specificationAddCart"
+	bind:close="closeCard" />
+
+<!-- 店铺信息 -->
+<view class="storeInfo container-rect">
+
+	<view class="flexbox otherstyle">
+		<view class="head_img">
+			<image bindtap="handleShowImg" data-url="{{storeDetails.store_logo}}" src="{{storeDetails.store_logo}}"></image>
+		</view>
+
+		<view class="head_desc">
+			<view class="storename_box">
+				<view class="storename">{{storeDetails.store_name}}</view>
+				<!-- wx:if="{{storeDetails.discount>0}}" -->
+				<view class="pinkBox">到店</view>
+				<view class="pinkBox bule" wx:if="{{storeDetails.takeoutfood == 1}}">外卖</view>
+				<view class="pinkBox yellow" wx:if="{{storeDetails.appointment_switch == 1}}">预约</view>
+			</view>
+			<view class="starsBox">
+				<block wx:for="{{stars}}" wx:key="stars">
+					<image class="pentagram" style="left: {{item*23}}rpx"
+						src=" {{store_score > item ?(store_score == 0.5?halfSrc:selectedSrc) : normalSrc}}">
+						<view class="item" style="left:0rpx" data-key="{{item+0.5}}" bindtap=""></view>
+						<view class="item" style="left:30rpx" data-key="{{item+1}}" bindtap=""></view>
+					</image>
+				</block>
+				<text class="storeScore">{{store_score}}星</text>
+				<text class="perCapita">均价{{storeDetails.average_price}}</text>
+				<text class="monthSales">已售{{storeDetails.month_count}}</text>
+			</view>
+			<view class="bussiness_box flex sb">
+				<view class="businessTime" decode="true">
+					营业时间: {{storeDetails.business_hours}}
+					<view class="linear"></view>
+					<text>{{storeDetails.status==1?'营业中':'休息中'}}</text>
+
+				</view>
+				<view class="flex" style="margin-top:-12rpx">
+					<view bindtap="guide" style="width:60rpx;text-align:center">
+						<van-icon name="location-o" size="40rpx" />
+					</view>
+					<view style="width:50rpx;text-align:right" data-telephone="{{storeDetails.store_mobile}}" bindtap="to_call"
+						data-statu="open">
+						<van-icon wx:if="{{storeDetails.store_mobile}}" name="phone" size="40rpx" />
+					</view>
+				</view>
+			</view>
+			<view class="waimai_tips">
+				<text style="color: #D63341">消费1元平台送约{{storeDetails.one_beans}}福豆</text>
+				<view class="linear" wx:if="{{storeDetails.takeoutfood == 1}}"></view>
+				<text wx:if="{{storeDetails.takeoutfood == 1}}">外卖配送范围：3公里</text>
+			</view>
+			<!-- <view class="store_phone_address">
+      	<view class="store-phone" data-telephone="{{storeDetails.store_mobile}}" bindtap="to_call" data-statu="open">
+					<van-icon wx:if="{{storeDetails.store_mobile}}" name="phone" size="40rpx" />
+				</view>
+      </view> -->
+		</view>
+	</view>
+</view>
+<!-- 分割线 -->
+<view class="parting"></view>
+<!-- 骨架屏 -->
+<view class="skeleton-wrapper" wx:if="{{ loading }}">
+	<view class="skeleton-left">
+		<van-skeleton class="mt-30" row="12" row-width="100%" />
+	</view>
+	<view class="skeleton-right">
+		<van-skeleton title avatar avatar-size="150rpx" avatar-shape="square" row="2" />
+		<van-skeleton title avatar avatar-size="150rpx" avatar-shape="square" row="2" />
+		<van-skeleton title avatar avatar-size="150rpx" avatar-shape="square" row="2" />
+		<van-skeleton title avatar avatar-size="150rpx" avatar-shape="square" row="2" />
+		<van-skeleton title avatar avatar-size="150rpx" avatar-shape="square" row="2" />
+		<van-skeleton title avatar avatar-size="150rpx" avatar-shape="square" row="2" />
+	</view>
+
+</view>
+
+<!-- 商品列表 -->
+<van-tabs bind:click="handleClickTab">
+	<!-- 优惠商品面板 -->
+	<van-tab title="优惠商品">
+		<view class="goods" wx:if='{{goodsItem2.length>0}}'>
+			<!-- 左 -->
+			<view class='tab-left'>
+				<scroll-view class="tab_left_pad" scroll-y="true" scroll-with-animation="true" scroll-top="{{verticalNavTop}}"
+					style="height:calc(100vh - 414rpx)">
+					<view wx:for="{{goodsItem2}}" wx:for-index='index' wx:key="id" bindtap="TabSelect" data-tabindex="{{index}}"
+						data-id="{{item.id}}" data-tcategory="{{item.category}}" data-tintroduce="{{item.introduce}}">
+						<view class="tabArr {{item.id==currentLeftSelect? 'active' : ''}}" data-category="{{index}}">
+							<view class="flexbox">
+								<image mode="aspectFit" src='{{item.category=="活动区"?"../../images/storeDetails/active.png":""}}'
+									wx:if="{{item.category=='活动区'}}" class="activeInco"></image>
+								<image mode="aspectFit" src='{{item.category=="优惠区"?"../../images/storeDetails/offer.png":""}}'
+									wx:elif="{{item.category=='优惠区'}}" class="activeInco"></image>
+								<text class="textTitle" id="tab-hd01" data-id="0" value="0" bindtap='click'
+									data-menuItem="{{item.category}}">{{item.category}}</text>
+							</view>
+							<!--选择数量  每次刷新都是遍历出来的-->
+							<view class="nums" wx:if="{{item.select_nums>0}}">{{item.select_nums}}</view>
+						</view>
+					</view>
+
+				</scroll-view>
+			</view>
+
+			<!-- 右 -->
+			<view class='tab-right-wrapper'>
+				<scroll-view class="tab-right-goods" scroll-with-animation="true" style="height:calc(100vh - 414rpx)"
+					scroll-y="true" bindscroll="VerticalMain" scroll-into-view="{{'main-'+mainCur}}">
+					<view wx:for="{{goodsItem2}}" wx:for-item='item' wx:for-index='index' wx:key="id" id="{{'main-'+index}}">
+						<view class="right-item" data-parentid="{{item.id}}">
+							<view class="discountedGoodsTitle" hidden="{{index==currentLeftSelect}}">
+								<view class="flexbox" style="align-items: center;">
+									<view
+										style="background:url('http://images.double.com.cn/upload/merchant/store/2019/201912/20191212/wizard_map.png') no-repeat;background-position: -434rpx -350rpx;background-size: 882rpx 1224rpx;height:32rpx;width:24rpx;">
+									</view>
+									<text class="preferential">{{item.category}}</text>
+									<text class="mustSee">{{item.introduce}}</text>
+								</view>
+							</view>
+							<view class="specificProduct flexbox" wx:for="{{item.list_goods}}" wx:for-item='gooditem'
+								wx:for-index="goodindex" wx:key="goodindex">
+								<!-- <navigator url="../productDetails/productDetails?goods_id={{gooditem.goods_id}}&goods_type={{item.goods_type}}"> -->
+								<!--请求服务器图片时，压缩图片-->
+								<image bindtap="handleShowImg" data-url="{{gooditem.goods_pic}}"
+									wx:if='{{gooditem.goods_pic !== undefined}}' class="productImage"
+									src="{{gooditem.goods_pic+'?x-oss-process=image/resize,w_300,h_300'}}" mode="aspectFill" lazy-load />
+								<!-- </navigator> -->
+								<view
+									style="position:absolute;top:168rpx;left:324rpx;background:url('http://images.double.com.cn/upload/merchant/store/2019/201912/20191212/wizard_map.png') no-repeat;background-position: -234rpx -756rpx;background-size: 682rpx 1000rpx;height:32rpx;width:24rpx;width:217rpx;height:104rpx;"
+									wx:if="{{currentClickInput == gooditem.goods_id && user_isEnter_storeDetail===false && gooditem.isload === true}}">
+								</view>
+
+								<view class="goodsInfosbox " style="line-height:{{gooditem.goods_desc?'1.2':'2'}}">
+									<view class="productDescription flexbox spaceBetween">
+										<view class="name">{{gooditem.goods_name}}</view>
+									</view>
+									<!--商品描述-->
+									<view class="tipss">
+										<text>{{gooditem.goods_desc_other}}</text>
+									</view>
+
+									<view class="month_sal">
+										<text>{{gooditem.month_count===undefined?'':'月售'}}{{gooditem.month_count}} </text>
+									</view>
+
+									<view class="platformPrice">
+										<image wx:if="{{ item.category =='活动区'}}" src="../../images/storeDetails/evar.png"></image>
+
+										<text class="now_price">{{gooditem.goods_price}}</text>
+									</view>
+
+									<view class="addToCart flexbox spaceBetween dingwei">
+										<view wx:if="{{gooditem.noGood}}" class="flexbox">
+											<view wx:if='{{!gooditem.goods_attributes}}' class="goods-num-wrapper">
+												<view hover-class='hover-class-it' wx:if="{{gooditem.num > 0}}">
+													<view hover-class="jiastyle" data-index="{{index}}" data-goodindex="{{goodindex}}"
+														data-goods_desc="{{item.goods_desc}}" data-is_fanbuy="{{item.is_fanbuy}}"
+														data-goods_count="{{gooditem.goods_count}}" data-goodsId="{{gooditem.goods_id}}"
+														data-goods_price="{{gooditem.goods_price}}" data-plat_price="{{gooditem.plat_price}}"
+														data-goods_selenum="{{gooditem.num?gooditem.num:0}}"
+														data-goods_price="{{gooditem.goods_price}}"
+														data-discount_price="{{gooditem.discount_price}}" data-goods_name="{{gooditem.goods_name}}"
+														data-goods_pic="{{gooditem.goods_pic}}" data-goods_type="{{item.goods_type}}"
+														data-stock_count="{{gooditem.stock_count}}" bindtap="reduceFromCart" class="circleLess"
+														wx:if="{{true || gooditem.goods_id == curClickGood && gooditem.num>0}}">
+														<image style="width:100%;height:100%" src="../../images/storeDetails/less.png"></image>
+													</view>
+												</view>
+												<text class="goodsNum">{{gooditem.num!=0?gooditem.num:''}}</text>
+												<view hover-class='hover-class-it'>
+													<view hover-class="jiastyle" data-index="{{index}}"
+														data-goods_count="{{gooditem.goods_count}}" data-is_fanbuy="{{item.is_fanbuy}}"
+														data-goodindex="{{goodindex}}" data-goodsId="{{gooditem.goods_id}}"
+														data-goods_pic="{{gooditem.goods_pic}}" data-goods_price="{{gooditem.goods_price}}"
+														data-plat_price="{{gooditem.plat_price}}" data-goods_desc="{{item.goods_desc}}"
+														data-goods_price="{{gooditem.goods_price}}"
+														data-discount_price="{{gooditem.discount_price}}" data-goods_name="{{gooditem.goods_name}}"
+														data-goods_selenum="{{gooditem.num?gooditem.num:0}}"
+														data-stock_count="{{gooditem.stock_count}}" data-goods_type="{{item.goods_type}}"
+														bindtap="addToCart" class="circleAdd">
+														<image style="width:100%;height:100%" src="../../images/storeDetails/add.png"></image>
+													</view>
+												</view>
+
+											</view>
+											<view wx:else class="guigeClick" bindtap="LoadSpecificationAlertComponent" data-index="{{index}}"
+												data-goodindex="{{goodindex}}">选规格</view>
+										</view>
+										<text class="noGood" wx:else>已售罄</text>
+									</view>
+								</view>
+							</view>
+						</view>
+					</view>
+				</scroll-view>
+			</view>
+		</view>
+	</van-tab>
+	<!--商家详情-->
+	<van-tab title="商家详情">
+		<view class="store-detail">
+			<view class="store-address-detail">
+				<view bindtap="guide" class="guide">
+					<van-icon name="location-o" size="40rpx" />
+				</view>
+				<view class="store-address-info">
+					<text>{{storeDetails.store_address}}</text>
+					<text style="margin-left: 20rpx">{{storeDetails.store_name}}</text>
+				</view>
+
+				<!--打电话-->
+				<view class="store-phone" data-telephone="{{storeDetails.store_mobile}}" bindtap="to_call" data-statu="open">
+					<van-icon wx:if="{{storeDetails.store_mobile}}" name="phone" size="40rpx" />
+				</view>
+			</view>
+
+			<van-divider customStyle="margin: 0 24rpx 20rpx 24rpx" />
+
+			<!-- 店铺轮播 -->
+			<scroll-view class="scroll-view-image" scroll-x="true" bindscroll="scroll" style="width: 100%">
+				<image class="store-img" wx:for="{{imgUrls}}" wx:for-item="item" src="{{item.store_pic}}"
+					id="{{item.store_pic}}" bindtap="showBigImg"></image>
+			</scroll-view>
+		</view>
+
+		<!-- 温馨提示 -->
+		<view class="tips-wrapper">
+			<view class="tips-title">温馨提示</view>
+			<view wx:for="{{tips}}" wx:for-item="item" wx:key="index" class="tips-item">
+				<view class="dot"></view>
+				<text>{{item}}</text>
+			</view>
+
+		</view>
+		<!-- 营业资质 -->
+		<van-cell title="营业资质" is-link bind:click="navigator" />
+	</van-tab>
+</van-tabs>
+
+<!-- 购物车 -->
+<van-popup show="{{ showCart }}" round position="bottom"
+	custom-style="max-height: 50%; min-height: 30%; border-radius: 20rpx" bind:close="onCloseCart">
+	<view class="cart-box">
+		<view class="cart-top">
+			<text>已选商品({{total_num}})</text>
+			<van-icon name="delete" size="50rpx" color="#888" bind:click="deleFn" />
+		</view>
+		<view class="cart-item-wrapper">
+			<!--购物车 循环遍历已选商品-->
+			<block wx:for="{{choosedList}}" wx:for-item='gooditem' wx:for-index='goodindex' wx:key='item'>
+				<view class="cartDetail">
+					<image class="cart_goodImg" src="{{gooditem.goods_pic}}"></image>
+					<view class="cart_good_desc">
+						<view>{{gooditem.goods_name}}<text
+								wx:if="{{gooditem.goods_attributes}}">({{gooditem.goods_attributes}})</text></view>
+						<view>¥{{gooditem.goods_price}}</view>
+					</view>
+					<view class="cart_fn">
+						<view class="circleLess" hover-class="jiastyle" data-index="{{gooditem.index}}"
+							data-goodindex="{{gooditem.goodindex}}" data-goods_count="{{gooditem.goods_count}}"
+							data-goodsId="{{gooditem.goodsid}}"
+							data-goods_selenum="{{gooditem.goods_selenum?gooditem.goods_selenum:0}}"
+							data-goods_type="{{gooditem.goods_type}}" data-goods_price="{{gooditem.goods_price}}"
+							data-plat_price="{{gooditem.plat_price}}" data-discount_price="{{gooditem.discount_price}}"
+							data-goods_name="{{gooditem.goods_name}}" data-goods_pic="{{gooditem.goods_pic}}"
+							data-goods_desc="{{gooditem.goods_desc}}" data-stock_count="{{gooditem.stock_count}}"
+							data-is_fanbuy="{{gooditem.is_fanbuy}}" data-choose_spc="{{gooditem.choose_spc}}"
+							data-goods_attributes="{{gooditem.goods_attributes?gooditem.goods_attributes:''}}"
+							bindtap="reduceFromCart">
+							<image style="width:100%;height:100%" src="../../images/storeDetails/less.png"></image>
+						</view>
+
+						<text>{{gooditem.goods_selenum}}</text>
+
+						<view class="circleAdd" hover-class="jiastyle" data-index="{{gooditem.index}}"
+							data-goods_count="{{gooditem.goods_count}}" data-goodindex="{{gooditem.goodindex}}"
+							data-goods_type="{{gooditem.goods_type}}" data-goodsId="{{gooditem.goodsid}}"
+							data-goods_pic="{{gooditem.goods_pic}}" data-goods_price="{{gooditem.goods_price}}"
+							data-goods_price="{{gooditem.goods_price}}" data-plat_price="{{gooditem.plat_price}}"
+							data-discount_price="{{gooditem.discount_price}}" data-goods_name="{{gooditem.goods_name}}"
+							data-is_fanbuy="{{gooditem.is_fanbuy}}" data-goods_desc="{{gooditem.goods_desc}}"
+							data-goods_attributes="{{gooditem.goods_attributes?gooditem.goods_attributes:''}}"
+							data-goods_selenum="{{gooditem.goods_selenum?gooditem.goods_selenum:0}}"
+							data-choose_spc="{{gooditem.choose_spc}}" data-stock_count="{{gooditem.stock_count}}" bindtap="addToCart">
+							<image style="width:100%;height:100%" src="../../images/storeDetails/add.png"></image>
+						</view>
+					</view>
+				</view>
+			</block>
+		</view>
+	</view>
+</van-popup>
+
+<!-- 选择用餐方式弹窗 -->
+<van-dialog use-slot show="{{ showDialog }}" confirm-button-color="#D63341" show-cancel-button asyncClose
+	bind:close="onCloseDialog" bind:confirm="handleSelectCan">
+	<!-- 用餐人数 -->
+	<view class="can-input-num" wx:if="{{storeInfo.meel_fee_switch==1}}">
+		<text class="switch-text">用餐人数：</text>
+		<view style="margin-left:42rpx">
+			<van-radio-group value="{{ status }}" bind:change="handleChangeOrderType">
+				<van-radio checked-color="#D63341" name="1">
+					<van-field custom-style="padding:8rpx 0;border-bottom:1rpx solid #eee;width:300rpx;" value="{{ userNum }}"
+						border="{{false}}" type="number" clearable placeholder="请输入用餐人数" bind:click-icon="onClickIcon"
+						bind:change="getUserNumChange" />
+				</van-radio>
+				<van-radio checked-color="#D63341" name="2">加商品</van-radio>
+
+			</van-radio-group>
+		</view>
+	</view>
+
+	<view class="can-select">
+		<text>用餐方式：</text>
+		<view class="can-radio-wrapper">
+			<van-radio-group value="{{ radio }}" bind:change="handleChangeCan">
+				<van-radio checked-color="#D63341" name="1">已到店</van-radio>
+				<van-radio wx:if="{{storeInfo.appointment_switch==1}}" checked-color="#D63341" name="2">已预约到店</van-radio>
+				<van-radio wx:if="{{storeInfo.takeoutfood==1}}" disabled="{{order_cost < storeInfo.takeout_startorder}}"
+					checked-color="#D63341" name="3">外卖(满{{storeInfo.takeout_startorder}}起送)</van-radio>
+			</van-radio-group>
+		</view>
+	</view>
+
+</van-dialog>
+<!-- 查看大图 -->
+<van-popup show="{{ imgshow }}" closeable close-icon="close" bind:close="onCloseImgShow">
+	<view style="width:560rpx;height:560rpx;margin-top:80rpx;padding:0 12rpx 12rpx 12rpx">
+		<image style="width:100%;height:100%" mode="aspectFill" lazy-load src="{{showGoodsImgurl}}"></image>
+	</view>
+</van-popup>
+<!-- tabBar 是否营业 business-->
+<view class="tab-bar" hidden="{{currentTab!='0'}}">
+	<block wx:if="{{storeDetails.status!=1}}">
+		<view class="rest">店铺休息中</view>
+	</block>
+	<block wx:else>
+		<van-icon class="cart-icon" name="shopping-cart-o" color="#fff" info="{{total_num}}" size="40" bindtap="openCart"
+			data-num="{{total_num}}" />
+		<view class="money">￥{{order_cost}}</view>
+		<view class="settlement" bindtap="{{!buttonClicked?'toPay':''}}" wx:if="{{ order_cost >= 0 }}">
+			<view class="settlementmask" wx:if="{{isMask}}"></view>
+			<view>去结算</view>
+		</view>
+		<!-- <view class="settlement" bindtap="{{!buttonClicked?'toPay':''}}"
+      wx:if="{{ order_cost >= storeInfo.takeout_startorder }}">
+      <view class="settlementmask" wx:if="{{isMask}}"></view>
+      <view>去结算</view>
+    </view> -->
+		<!-- <view class="settlement gray"
+      wx:if="{{ storeInfo.takeoutfood === 1 && order_cost < storeInfo.takeout_startorder }}">
+      <view class="settlementmask" wx:if="{{isMask}}"></view>
+      <view>{{storeInfo.takeout_startorder}}元起送</view>
+    </view> -->
+	</block>
+</view>

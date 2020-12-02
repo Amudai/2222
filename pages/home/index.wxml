@@ -1,0 +1,133 @@
+<import src="/template/wxml/waterfall.wxml" />
+
+<view class="scrollBox">
+
+	<view class="home-top-bg">
+		<view>
+			<view style="height: {{statusBarHeight}}px;"></view>
+			<view class="home-top-city" style="height: {{toBarHeight}}px;" bindtap="changeCity">
+				<van-icon name="location" bind:click="getLoaction" class="location-icon" color="#ffffff" size="40rpx" />
+				<view class="city">{{store_area !==''?store_area:curCity}}</view>
+				<van-icon name="arrow-down" class="arrow-down-icon" color="#ffffff" size="30rpx" />
+			</view>
+		</view>
+		<!-- <view class="home-top-city" bindtap="changeCity">
+			<van-icon name="location" bind:click="getLoaction" class="location-icon" color="#ffffff" size="40rpx" />
+			<view class="city">{{store_area !==''?store_area:curCity}}</view>
+			<van-icon name="arrow-down" class="arrow-down-icon" color="#ffffff" size="30rpx" />
+		</view> -->
+		<!-- 搜索栏 -->
+		<van-sticky bind:scroll="getSearchScroll">
+			<navigator wx:if="{{!searchTop}}" class="selectbtn flexbox"
+				url="../../pages/select/select?city={{store_area !=''?fcity:curCity}}&store_area={{store_area}}&&longitude={{longitude}}&latitude={{latitude}}">
+				<label>
+					<image src="../../images/select.png" mode="aspectFill"></image>
+				</label>
+				<text class="placeholder">福猫搜一搜</text>
+			</navigator>
+			<view class="searh-wrapper" style="height: {{statusBarHeight+toBarHeight}}px;" wx:if="{{searchTop}}">
+				<view style="width:100%;height: {{statusBarHeight}}px;"></view>
+			<view class="flex ai" style="height:{{toBarHeight}}px">
+				<navigator style="margin: 0rpx 0 0 32rpx; width: 500rpx;" class="selectbtn flexbox"
+					url="../../pages/select/select?city={{store_area !=''?fcity:curCity}}&store_area={{store_area}}&&longitude={{longitude}}&latitude={{latitude}}">
+					<label>
+						<image src="../../images/select.png" mode="aspectFill"></image>
+					</label>
+					<text class="placeholder">福猫搜一搜</text>
+				</navigator>
+			</view>
+			</view>
+		</van-sticky>
+
+		<!-- 轮播图 -->
+		<swiper class="card-swiper" circular autoplay interval="5000" duration="500" bindchange="handleImgChange"
+			indicator-color="#8799a3" indicator-active-color="#0081ff">
+			<swiper-item wx:for="{{list_ad}}" wx:key="index" class="{{currentIndex==index?'cur':''}}">
+				<view class="swiper-item">
+					<image style="width:100%;height:100%" src="{{item.ad_pic}}" lazy-load='true' />
+				</view>
+			</swiper-item>
+		</swiper>
+		<view wx:if='{{isShowCate}}' class="nav nav1 flexbox">
+			<block wx:for='{{list_category}}' wx:key='index'>
+				<navigator class="nav_item"
+					url="../../pages/classification/classification?category_id={{item.category_id}}&sec_category_id={{item.sec_category_id}}&category_name={{item.category_name}}&&longitude={{longitude}}&latitude={{latitude}}&store_city={{store_area !=''?fcity:curCity}}&store_area={{store_area}}&store_street={{store_street}}"
+					hover-class="navigator-hover">
+					<image mode="aspectFill" src="{{item.category_pic}}"></image>
+					<view>{{item.category_name}}</view>
+				</navigator>
+
+			</block>
+		</view>
+		<!-- 二级分类导航 -->
+		<view wx:if='{{isShowCate}}' class="nav nav1 flexbox">
+
+			<block wx:for='{{list_category_second}}' wx:key='index'>
+				<navigator class="nav_item" wx:if="{{item.category_name=='全部'}}"
+					url="../../pages/allCategories/allCategories?category_id={{item.category_id}}&sec_category_id={{item.sec_category_id}}&category_name={{item.category_name}}&&longitude={{longitude}}&latitude={{latitude}}&store_city={{curCity}}&store_area={{store_area}}&store_street={{store_street}}"
+					hover-class="navigator-hover">
+					<image mode="aspectFill" src="{{item.category_pic}}"></image>
+					<view>{{item.category_name}}</view>
+				</navigator>
+				<navigator class="nav_item" wx:else
+					url="../../pages/classification/classification?category_id={{item.category_id}}&sec_category_id={{item.sec_category_id}}&category_name={{item.category_name}}&&longitude={{longitude}}&latitude={{latitude}}&store_city={{curCity}}&store_area={{store_area}}&store_street={{store_street}}"
+					hover-class="navigator-hover">
+					<image src="{{item.category_pic}}"></image>
+					<view>{{item.category_name}}</view>
+				</navigator>
+
+			</block>
+		</view>
+
+		<!-- 正在开发中 -->
+		<view class="store-ad">
+			<image src="../../images/home/home-left.png" />
+			<image src="../../images/home/home-right.png" />
+		</view>
+
+		<view class="store-wrapper">
+			<view class="store-title">福猫推荐</view>
+			<store-item stores="{{stores}}"></store-item>
+			<!-- <view class="store-item" bindtap="toStoreDetail" data-index='{{item}}' wx:for="{{stores}}" wx:key="item">
+				<image mode="aspectFill" src="{{item.store_logo}}" class="store-item-img" />
+				<view class="store-item-middle">
+					<view class="store-name">{{item.store_name}}</view>
+					<view class="store-tips">
+						消费1元可获得约
+						<text style="color: #DE1425">{{item.one_beans}}福豆</text>
+					</view>
+					<text class="">{{item.store_area}} {{item.store_desc}}</text>
+					<text class="">距您{{item.distance}}公里</text>
+					<view class="flex">	<view class="store-item-tag-kong" wx:for="{{item.list_store_tag}}" wx:for-item="items" wx:key="index">{{items.tag_name}}</view></view>
+				</view>
+				<view class="store-item-right">
+					<view class="store-item-tag" >到店</view>
+					<view class="store-item-tag bule" wx:if="{{item.appointment_switch == 1}}">外卖</view>
+					<view class="store-item-tag yellow" wx:if="{{item.takeoutfood ==1}}">预约</view>
+				</view>
+			</view> -->
+		</view>
+	</view>
+
+	<!-- <view class="nomore-wrapper">
+		<text wx:if="{{ isAdd }}">没有更多数据了哦~</text>
+		<van-loading type="spinner" color="#1989fa" wx:else />
+	</view> -->
+</view>
+
+<view class="help">
+	<button session-from="nickName={{userInfo.nickName}}|avatarUrl={{userInfo.avatarUrl}}}" open-type="contact"
+		bindcontact="handleContact"></button>
+
+	<button class="usermask" wx:if='{{isUser}}' hidden="{{zIndex==0}}" open-type="getUserInfo"
+		bindgetuserinfo="getUserInfo"></button>
+	<button class="usermask phonemask" wx:if="{{isPhone}}" open-type="getPhoneNumber"
+		bindgetphonenumber="getPhoneNumber"></button>
+	<image src="../../images/help.png" style="zIndex:{{zIndex}}"></image>
+</view>
+
+<!-- 开启定位弹窗 -->
+<van-dialog use-slot title="温馨提示！" show="{{ showOpenLoal }}" show-cancel-button bind:confirm="handleOpenLoal"
+	bind:close="handleCloseLoal">
+	<view class="loal-tips">检测到您没打开福猫来了的定位权限，是否去设置打开？</view>
+</van-dialog>

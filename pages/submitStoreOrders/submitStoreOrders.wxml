@@ -1,0 +1,146 @@
+<import src="/template/wxml/waterfall.wxml" />
+
+
+<view class="container">
+  <!-- 店铺详情 -->
+  <view class="storeDetails flexbox">
+    <!-- 图标 -->
+    <image class="icon" src="{{goodsInfo.store_logo}}"></image>
+    <view class="storeName">
+      <text class="detailStorename">{{goodsInfo.store_name}}</text>
+      <text class="detailLocaltion">{{goodsInfo.store_address}}</text>
+    </view>
+  </view>
+
+  <!-- 订单详细信息 -->
+  <view class="orderDetails" wx:if="{{isScan}}">
+    <block wx:for="{{goodsItem}}" wx:key='goods_id'>
+      <view class="orderWrap flexbox">
+        <image class="orderImg" src="{{item.goods_pic}}"></image>
+        <view class="boline {{index==goodsInfo.goods_info.length?'nobor':''}}">
+          <view class="orderdesc">
+            <view class="orderDescript">{{item.goods_name}}</view>
+            <text class="orderSinglePrice">¥{{item.goods_price}}</text>
+          </view>
+          <view class="num_wrapper">
+            <text class="orderNum">×{{item.goods_num}}</text>
+            <text class="orderNum" wx:if="{{item.goods_attributes}}">{{item.goods_attributes}}</text>
+          </view>
+        </view>
+      </view>
+    </block>
+    <view class="backWhite flex ct-ai" bindtap="showMore" wx:if="{{!isShowMore && goodsItem.length > 3}}">
+      <view>展开更多</view>
+    </view>
+    <view class="backWhite flex ct-ai" bindtap="closeMore" wx:if="{{isShowMore}}">
+      <view>收起更多</view>
+    </view>
+  </view>
+
+  <!-- 餐位费展示 -->
+  <view class="canweifei_show" wx:if="{{canWeiFei.length > 0}}">
+    <view class="flex_wrapper">
+      <text class="orderName">餐位费({{canWeiFei[0].goods_price}}元/人)</text>
+      <view class="flex_right">
+        <text class="orderNum">×{{canWeiFei[0].goods_num}}</text>
+        <text class="orderSinglePrice">¥{{canWeiFeiTotal}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 福豆展示 -->
+  <view class="xiaolu-wrapper">
+    <text bindtap="jumpToFudou">福豆: {{fudouDetail.available}}个</text>
+    <view style="margin-right: 30rpx" class="xiaolu-price">
+      <text style="color: #333" wx:if="{{isCheckFudou}}">可抵扣</text>
+      <text style="color: #666; margin-right: 10rpx" wx:if="{{!isCheckFudou}}">不使用福豆</text>
+      <text style="margin-right:30rpx" wx:if="{{isCheckFudou}}">{{discountBeans}}</text>
+      <van-switch checked="{{ isCheckFudou }}" bind:change="handleChangeIsFudou" size="40rpx" active-color="#D63341" />
+    </view>
+
+  </view>
+
+  <!-- 桌号备注信息 -->
+  <view class="deskRemarks">
+    <view class="deskNum flexbox">
+      <view>桌号</view>
+      <text class="cl-6">{{goodsInfo.table_no}}</text>
+    </view>
+    <view class="remarks flexbox">
+      <view>备注</view>
+      <text class="cl-6">{{goodsInfo.remark}}</text>
+    </view>
+  </view>
+
+  <!-- 弹窗 -->
+  <van-popup show="{{ show }}" round position="bottom" custom-style="height: 44%" bind:close="onClose">
+    <view class="cell_title mt-50 ml-30">账单详情</view>
+    <view class="goods_money flex sb-ai mt-30">
+      <view>订单金额</view>
+      <view>￥ {{showNoCan}}</view>
+    </view>
+    <view class="goods_money flex sb-ai mt-10" wx:if="{{canWeiFei.length > 0}}">
+      <view>餐位费</view>
+      <view>¥{{canWeiFeiTotal}}</view>
+    </view>
+    <view class="goods_money flex sb-ai mt-10" wx:if="{{isCheckFudou}}">
+      <view>福豆抵扣</view>
+      <view>- ￥{{discountBeans}}</view>
+    </view>
+    <view class="goods_money flex sb-ai mt-10 mb-20">
+      <view>返豆个数</view>
+      <view>{{goodsInfo.give_bean}} 个</view>
+    </view>
+    <view class="tab-bar flex sb-ai van-hairline--top">
+      <view class="moneyBox">
+        <view class="onlinePay">实付
+          <text class="totalMoney" wx:if="{{!isCheckFudou}}">￥{{show_price}}</text>
+          <text class="totalMoney" wx:else>￥{{show_price - discountBeans}}</text>
+        </view>
+        <view class="offer">
+          优惠
+          <text class="offerMoney" wx:if="{{isCheckFudou}}">¥{{discountBeans}}</text>
+          <text class="offerMoney" wx:else>¥0</text>
+          返豆
+          <text class="offerMoney">{{goodsInfo.give_bean}} 个</text>
+        </view>
+      </view>
+      <!-- 弹出遮罩层 -->
+      <view bindtap="onClose" class="flex ct-ai detail-btn">
+        <text class="cl-red fs-24 mr-10">收起明细</text>
+        <image class="detailInco" src="../../images/submitOrders/up.png"></image>
+      </view>
+      <view class="settlement">
+        <view class="mask" wx:if="{{isMask}}"></view>
+        <view bindtap="{{!buttonClicked?'wechatPay':''}}">提交订单</view>
+      </view>
+    </view>
+  </van-popup>
+
+  <!-- tabBar -->
+  <view class="tab-bar flex sb-ai">
+    <view class="moneyBox">
+      <view class="onlinePay">实付
+        <text class="totalMoney" wx:if="{{!isCheckFudou}}">￥{{show_price}}</text>
+        <text class="totalMoney" wx:else>￥{{show_price - discountBeans}}</text>
+      </view>
+      <view class="offer">
+        福豆抵扣
+        <text class="offerMoney" wx:if="{{isCheckFudou}}">¥{{discountBeans}}</text>
+        <text class="offerMoney" wx:else>¥0</text>
+        返豆
+        <text class="offerMoney">{{goodsInfo.give_bean}} 个</text>
+      </view>
+    </view>
+    <!-- 弹出遮罩层 -->
+    <view bindtap="openDetails" class="flex ct-ai detail-btn">
+      <text class="cl-red fs-24 mr-10">明细</text>
+      <image class="detailInco" src="../../images/submitOrders/up.png"></image>
+    </view>
+    <view class="settlement">
+      <view class="mask" wx:if="{{isMask}}"></view>
+      <view bindtap="{{!buttonClicked?'wechatPay':''}}">提交订单</view>
+    </view>
+  </view>
+
+</view>

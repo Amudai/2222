@@ -1,0 +1,51 @@
+
+.top{
+  margin-top: 100rpx;
+  text-align: center;
+  padding: 80rpx 0;
+  line-height: 120rpx;
+  color: #939090;
+}
+
+.title{
+  color: #fff !important;
+}
+
+.van-count-down {
+  color: #D63341 !important;
+}
+
+.store{
+  line-height: 48rpx;
+  justify-content: center;
+  margin-top: 30rpx;
+}
+
+.money-icon {
+  font-size: 48rpx;
+  color: #333;
+  margin-right: 10rpx;
+}
+
+.money{
+  font-size: 76rpx;
+  color: #333;
+  font-weight: 600;
+}
+
+.button{
+  width: 100%;
+  position: absolute;
+  bottom: 50rpx;
+}
+
+.button view{
+  width: 702rpx;
+  height: 88rpx;
+  line-height: 88rpx;
+  color: #fff;
+  text-align: center;
+  background-color: #D63341;  
+  margin: 0 auto;
+  border-radius:10rpx;
+}

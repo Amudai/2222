@@ -1,0 +1,31 @@
+.fs-24 {
+  font-size: 24rpx;
+}
+
+.fs-26 {
+  font-size: 26rpx;
+}
+
+.fs-28 {
+  font-size: 28rpx;
+}
+
+.fs-30 {
+  font-size: 30rpx;
+}
+
+.cl-3 {
+  color: #333;
+}
+
+.cl-6 {
+  color: #666;
+}
+
+.cl-9 {
+  color: #999;
+}
+
+.cl-red {
+  color: #FE0100;
+}

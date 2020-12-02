@@ -1,0 +1,24 @@
+<van-nav-bar
+  title="支付"
+  left-text="返回"
+  left-arrow
+  fixed="true"
+  custom-style="background: #D63341;"
+  title-class="title"
+  bind:click-left="onClickLeft"
+/>
+
+<view class="top">
+  <view class="flex ct-ai fs-28"> 
+    <van-count-down time="{{ time }}" format="HH 时 mm 分 ss 秒" />  
+    内未完成支付，将自动取消订单
+  </view>
+  <view class="money-wrapper">
+    <text class="money-icon">¥</text>
+    <text class="money">{{actual_money}}</text>
+  </view>
+  <view class="flexbox store">{{store_name}}</view>
+</view>
+<view class="button" bindtap="payForWechat">
+  <view>确定支付</view>
+</view>

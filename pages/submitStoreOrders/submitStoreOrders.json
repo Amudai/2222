@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "提交订单",
+  "usingComponents": {
+    "van-popup": "@vant/weapp/popup/index",
+    "van-switch": "@vant/weapp/switch/index"
+  }
+}

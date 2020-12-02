@@ -1,0 +1,7 @@
+{
+  "navigationBarTextStyle": "white",
+  "usingComponents": {
+    "upload-img": "/component/uploadImg/uploadImg"
+  },
+  "navigationBarTitleText": "申请退款"
+}

@@ -1,0 +1,166 @@
+.fudou-page-bg {
+  width: 750rpx;
+  height: 302rpx;
+  background: #3C3733;
+}
+.nodata {
+  flex-direction: row;
+  align-items: center; /*垂直居中*/
+  justify-content: center; /*水平居中*/
+  margin-top: 200rpx;
+}
+.fudou-bg {
+  width: 725rpx;
+  height: 478rpx;
+  position: absolute;
+  top: 0;
+  left:-6rpx;
+}
+
+.fudou-bg-wrapper {
+  position: absolute;
+  width: 660rpx;
+  height: 320rpx;
+  top: 60rpx;
+  left: 46rpx;
+}
+
+.fudou-bg-top {
+  width: 100%;
+  height: 100rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+}
+
+.fudou-icon {
+  width: 24rpx;
+  height: 24rpx;
+  margin-left: 32rpx;
+  margin-right: 14rpx;
+}
+
+.fudou-bg-top-left {
+  font-size: 32rpx;
+  font-weight: 500;
+  color: #5C412F;
+}
+
+.fudou-about {
+  width: 140rpx;
+  height: 48rpx;
+  background: #695648;
+  border-radius: 50rpx;
+  font-size: 24rpx;
+  margin-right: 32rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+}
+
+.fudou-num {
+  font-size: 60rpx;
+  font-weight: bold;
+  color: #5A412E;
+  line-height: 140rpx;
+  text-align: center;
+}
+
+.fudou-money-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.fudou-money {
+  font-size: 28rpx;
+  font-weight: 500;
+  color: #5C412F;
+  margin-top: 20rpx;
+  /* text-align: right; */
+  /* margin-right: 40rpx; */
+}
+
+.fudou-handle-wrapper {
+  /* width: 100%; */
+  padding: 0 40rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 160rpx;
+}
+
+.fudou-btn {
+  width: 80rpx;
+  height: 40rpx;
+  background: #FCEEDA;
+  border-radius: 10rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24rpx;
+  color: #695648;
+  margin-left: 14rpx;
+}
+
+.fudou-handle-title {
+  font-size: 32rpx;
+  font-weight: 500;
+  color: #333333;
+}
+
+.fudou-btn-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.fudou-item-wrapper {
+  padding: 0 40rpx;
+  margin-top: 20rpx;
+}
+
+.fudou-item {
+  padding: 20rpx;
+  height: 152rpx;
+  border-bottom: 1rpx solid #E5E5E5;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.fudou-item view {
+  font-size: 28rpx;
+  font-weight: 400;
+  color: #333333;
+}
+
+.fudou-item text {
+  font-size: 24rpx;
+  font-weight: 400;
+  color: #999;
+}
+
+.fudou-item-left {
+  height: 132rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.fudou-item-right {
+  font-size: 40rpx;
+  font-weight: 600;
+  color: #333333;
+  height: 132rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.active {
+  background: #FE6A77; 
+  color: #fff;
+}

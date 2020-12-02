@@ -1,0 +1,58 @@
+<view class="fudou-page">
+  <view class="fudou-page-bg"></view>
+  <image class="fudou-bg" src="../../images/me/fudou-bg.png"></image>
+  <view class="fudou-bg-wrapper">
+    <view class="fudou-bg-top">
+      <view class="fudou-bg-top-left">
+        <image class="fudou-icon" src="../../images/me/fudou.png"></image>
+        <text>我的福豆</text>
+      </view>
+      <view class="fudou-about" bindtap="jumpToFudouRule">关于福豆</view>
+    </view>
+    <view class="fudou-num">{{fudouDetail.available}}</view>
+    <view class="fudou-money-wrapper">
+      <view class="fudou-money">
+        <text>总福豆</text>
+        <text style="color: #FF0C17">{{fudouDetail.total}}</text>
+        <text>个</text>
+      </view>
+      <view class="fudou-money">
+        <text>冻结</text>
+        <text style="color: #FF0C17">{{fudouDetail.freeze}}</text>
+        <text>个</text>
+      </view>
+      <view class="fudou-money">
+        <text>可抵扣</text>
+        <text style="color: #FF0C17">{{fudouDetail.available / 100}}</text>
+        <text>元</text>
+      </view>
+    </view>
+
+  </view>
+
+  <view class="fudou-handle-wrapper">
+    <view class="fudou-handle-title">福豆明细</view>
+    <view class="fudou-btn-wrapper">
+      <view wx:for="{{tabs}}" class="fudou-btn {{currentIndex === index ? 'active': ''}}" bindtap="handleChangetabs"
+        wx:key="value" data-value="{{item.value}}">
+        {{item.label}}
+      </view>
+    </view>
+  </view>
+
+  <view class="fudou-item-wrapper">
+    <view class="fudou-item" wx:for="{{fudouList}}" wx:key="index">
+      <view class="fudou-item-left">
+        <view>{{item.remark}}（{{item.store_name}}）</view>
+        <text>订单号：{{item.order_sn}}</text>
+        <text>{{item.created_at}}</text>
+      </view>
+      <view class="fudou-item-right" wx:if="{{item.type === 1}}"> + {{item.bean_num}}</view>
+      <view class="fudou-item-right" wx:if="{{item.type === 2}}"> - {{item.bean_num}}</view>
+      <view class="fudou-item-right" wx:if="{{item.type === 3 || item.type === 4}}">{{item.bean_num}}</view>
+    </view>
+    <view class="nodata flexbox" wx:if="{{fudouList.length==0}}">
+      <image mode="aspectFit" src="../../images/nofudoulist.png" lazy-load="true"></image>
+    </view>
+  </view>
+</view>

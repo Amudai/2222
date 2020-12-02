@@ -1,0 +1,225 @@
+<import src="/template/wxml/waterfall.wxml" />
+
+
+<view class="container">
+	<!-- 店铺详情 -->
+	<view class="storeDetails flexbox">
+		<!-- 图标 -->
+		<image class="icon" src="{{storeInfo.store_logo}}"></image>
+		<view class="storeName">
+			<text class="detailStorename">{{storeInfo.store_name}}</text>
+			<text class="detailLocaltion">{{storeInfo.store_address}}</text>
+		</view>
+	</view>
+
+	<!-- 订单详细信息 -->
+	<view class="orderDetails">
+		<block wx:for="{{storeGoods}}" wx:key='goods_id'>
+			<view class="orderWrap flexbox">
+				<image class="orderImg" src="{{item.goods_pic}}"></image>
+				<view class="boline {{index==storeGoods.length?'nobor':''}}">
+					<view class="orderdesc">
+						<view class="orderDescript">{{item.goods_name}}</view>
+						<text class="orderSinglePrice">¥{{item.goods_price}}</text>
+					</view>
+					<view class="num_wrapper">
+						<text class="orderNum">×{{item.goods_selenum}}</text>
+						<text class="orderNum" wx:if="{{item.goods_attributes}}">{{item.goods_attributes}}</text>
+					</view>
+				</view>
+			</view>
+		</block>
+		<view class="backWhite flex ct-ai" bindtap="showMore" wx:if="{{!isShowMore&& goodsItem.length >3}}">
+			<view>展开更多</view>
+		</view>
+		<view class="backWhite flex ct-ai" bindtap="closeMore" wx:if="{{isShowMore && storeGoods.length > 3}}">
+			<view>收起更多</view>
+		</view>
+	</view>
+
+	<!-- 用餐方式展示 -->
+	<view class="eattype_box">
+		<view wx:if="{{category_id==1}}" class="flex_wrapper eattype_item">
+			<text class="eattype_desc">用餐方式</text>
+			<text class="eattype_name" wx:if="{{eatType==1}}">已到店</text>
+			<text class="eattype_name" wx:if="{{eatType==2}}">预约到店</text>
+			<text class="eattype_name" wx:if="{{eatType==3}}">外卖</text>
+		</view>
+		<view class="flex_wrapper eattype_item" wx:if="{{eatType==2}}">
+			<text class="eattype_desc">预计到店</text>
+			<view class="eattype_right_flex" bindtap="handleOpenTime">
+				<text class="{{haveChooseTime?'black_text':'gray_text'}}">{{haveChooseTime?timeNum:'请选择预约到店时间'}}</text>
+				<van-icon name="arrow" />
+			</view>
+		</view>
+		<view class="eattype_tips" wx:if="{{eatType==2}}">
+			温馨提示：为确保预约成功，请联系商家确认！
+		</view>
+		<view class="flex_wrapper eattype_item" wx:if="{{eatType==3}}">
+			<text class="eattype_desc">配送地址</text>
+
+			<view class="eattype_right_flex" bindtap="getAddress">
+				<text
+					class="{{userAddressSave?'black_text':'gray_text'}}">{{userAddressSave==''?'请选择配送地址':userAddressSave}}</text>
+				<van-icon name="arrow" />
+			</view>
+			<!-- <van-field model:value="{{ userAddressSave }}" input-align="right" border="{{false}}" placeholder="请输入配送地址" bind:change="onChangeAddress" /> -->
+		</view>
+		<view class="eattype_tips" wx:if="{{eatType==3}}">
+			温馨提示：配送时效30分钟，如若配送时效超时，请于商家电话联系！
+		</view>
+	</view>
+	<!-- 餐位费展示 -->
+	<view class="canweifei_show" wx:if="{{ userNum>0&&storeInfo.meel_fee_switch==1&&eatType !=='3'}}">
+		<view class="flex_wrapper">
+			<text class="orderName">餐位费({{storeInfo.meel_data.goods_price}}元/人)</text>
+			<view class="flex_right">
+				<text class="orderNum">×{{userNum}}</text>
+				<text class="orderSinglePrice">¥{{canTotal}}</text>
+			</view>
+		</view>
+	</view>
+	<!-- 配送费展示 -->
+	<view class="peisong_show" wx:if="{{ storeInfo.takeoutfood == 1 && eatType ==='3' }}">
+		<view class="flex_wrapper">
+			<text class="orderName">配送费</text>
+			<view class="flex_right">
+				<text class="orderNum">×1</text>
+				<text class="orderSinglePrice">¥{{distributionObject.price}}</text>
+			</view>
+		</view>
+	</view>
+	<!-- 福豆展示 -->
+	<view class="xiaolu-wrapper" bindtap="jumpToCoupon">
+		<!-- <text>福豆: {{fudouDetail.available}}个</text> -->
+		<van-checkbox value="{{ isCheckFudou }}" checked-color="#D63341" bind:change="handleChangeIsFudou">
+			福豆
+		</van-checkbox>
+		<view style="margin-right: 30rpx" class="xiaolu-price">
+			<text style="color: #333">可抵扣</text>
+			<!-- <text style="color: #666; margin-right: 10rpx" wx:if="{{!isCheckFudou}}">不使用福豆</text> -->
+			<text>{{discountBeans}}</text>
+			<text style="color: #666;">元</text>
+			<!-- <van-switch checked="{{ isCheckFudou }}" bind:change="handleChangeIsFudou" size="40rpx" active-color="#D63341" /> -->
+		</view>
+
+	</view>
+
+	<!-- 到店--1   预约到店---2 -->
+	<view class="deskRemarks" wx:if="{{category_id==1&&(eatType == 1||eatType == 2)}}">
+		<view class="deskNum flexbox sb">
+			<view class="desc_text">桌号</view>
+			<view style="width:560rpx">
+				<van-field model:value="{{ tableNumber }}" placeholder="桌号" bind:change="onChangeTable" />
+			</view>
+		</view>
+		<view class="remarks flexbox sb">
+			<view class="desc_text">备注</view>
+			<van-field model:value="{{ userInput }}" style="width:560rpx;z-index:1" bind:change="onChangeRemark"
+				placeholder="备注" type="textarea" placeholder="请填写备注信息" autosize border="{{ false }}" />
+		</view>
+	</view>
+
+	<!-- 外卖 -->
+	<view class="deskRemarks" wx:if="{{eatType == 3}}">
+		<view class="remarks flexbox sb">
+			<view class="desc_text">备注</view>
+			<van-field model:value="{{ userInput }}" style="width:560rpx;z-index:1" bind:change="onChangeRemark"
+				placeholder="备注" type="textarea" placeholder="请填写备注信息" autosize border="{{ false }}" />
+		</view>
+	</view>
+
+
+	<!-- 弹窗 -->
+	<van-popup show="{{ show }}" round position="bottom" bind:close="onClose">
+		<view class="cell_title mt-50 ml-30">账单详情</view>
+		<view class="goods_money flex sb-ai mt-30">
+			<view>订单金额</view>
+			<view>￥ {{showPrice}}</view>
+		</view>
+		<view class="goods_money flex sb-ai mt-10" wx:if="{{userNum>0&& storeInfo.meel_fee_switch==1&&eatType !=='3'}}">
+			<view>餐位费</view>
+			<view>¥{{userNum * storeInfo.meel_data.goods_price}}</view>
+		</view>
+		<view wx:if="{{storeInfo.takeoutfood == 1 && eatType == '3'}}" class="goods_money flex sb-ai mt-10">
+			<view>配送费</view>
+			<view>¥{{distributionObject.price}}</view>
+		</view>
+		<view class="goods_money flex sb-ai mt-10" wx:if="{{isCheckFudou}}">
+			<view>福豆抵扣</view>
+			<view>- ￥{{discountBeans}}</view>
+		</view>
+
+		<view class="goods_money flex sb-ai mt-10 mb-20" wx:if="{{returnBeans>0}}">
+			<view>消费返豆</view>
+			<view>{{returnBeans}}</view>
+		</view>
+		<view class="tab-bar flex sb-ai van-hairline--top">
+			<view class="moneyBox">
+				<view class="onlinePay">实付
+					<text class="totalMoney" wx:if="{{isCheckFudou}}">￥{{showAmount}}</text>
+					<text class="totalMoney" wx:else>￥{{totalAmout}}</text>
+				</view>
+				<view class="onlinePay">
+					本单平台送：
+					<text style="color:#fb8f44;">{{returnBeans}}</text>
+					豆
+				</view>
+				<!-- <view class="offer">
+						福豆抵扣
+						<text class="offerMoney" wx:if="{{isCheckFudou}}">¥{{discountBeans}}</text>
+						<text class="offerMoney" wx:else>¥0</text>
+						返豆
+						<text class="offerMoney">{{returnBeans}} 个</text> -->
+				<!-- <text class="offerMoney" wx:else> 0 个</text> -->
+				<!-- </view> -->
+			</view>
+			<!-- 弹出遮罩层 -->
+			<view bindtap="onClose" class="flex ct-ai detail-btn">
+				<text class="cl-red fs-24 mr-10">收起明细</text>
+				<image class="detailInco" src="../../images/submitOrders/up.png"></image>
+			</view>
+			<view class="settlement">
+				<view class="mask" wx:if="{{isMask}}"></view>
+				<view bindtap="{{!buttonClicked?'wechatPay':''}}">提交订单</view>
+			</view>
+		</view>
+		<view style="height:126rpx"></view>
+	</van-popup>
+
+	<!-- tabBar -->
+	<view class="tab-bar flex sb-ai">
+		<view class="moneyBox">
+			<view class="onlinePay">实付
+				<text class="totalMoney" wx:if="{{isCheckFudou}}">￥{{showAmount}}</text>
+				<text class="totalMoney" wx:else>￥{{totalAmout}}</text>
+			</view>
+			<view class="onlinePay">
+				本单平台送：
+				<text style="color:#fb8f44;">{{returnBeans}}</text>
+				豆
+			</view>
+			<!-- <view class="offer">
+				福豆抵扣
+				<text class="offerMoney" wx:if="{{isCheckFudou}}">¥{{discountBeans}}</text>
+				<text class="offerMoney" wx:else>¥0</text>
+				返豆
+				<text class="offerMoney" style="font-size:26rpx">{{returnBeans}} 个</text>
+			</view> -->
+		</view>
+		<!-- 弹出遮罩层 -->
+		<view bindtap="openDetails" class="flex ct-ai detail-btn">
+			<text class="cl-red fs-24 mr-10">明细</text>
+			<image class="detailInco" src="../../images/submitOrders/up.png"></image>
+		</view>
+		<view class="settlement">
+			<view class="mask" wx:if="{{isMask}}"></view>
+			<view bindtap="{{!buttonClicked?'wechatPay':''}}">提交订单</view>
+		</view>
+	</view>
+	<!-- 选择预计到达弹窗 -->
+	<van-popup show="{{ timeshow }}" round position="bottom" custom-style="height: 44%" bind:close="onCloseTime">
+		<van-datetime-picker type="time" value="{{ timeNum }}" min-hour="{{ minHour }}" max-hour="{{ maxHour }}"
+			bind:confirm="onTimeChange" />
+	</van-popup>
+</view>

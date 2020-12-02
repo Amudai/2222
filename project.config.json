@@ -1,0 +1,424 @@
+{
+  "description": "项目配置文件",
+  "packOptions": {
+    "ignore": []
+  },
+  "setting": {
+    "urlCheck": false,
+    "es6": true,
+    "enhance": false,
+    "postcss": true,
+    "preloadBackgroundData": false,
+    "minified": true,
+    "newFeature": true,
+    "coverView": true,
+    "nodeModules": false,
+    "autoAudits": true,
+    "showShadowRootInWxmlPanel": true,
+    "scopeDataCheck": false,
+    "uglifyFileName": false,
+    "checkInvalidKey": true,
+    "checkSiteMap": true,
+    "uploadWithSourceMap": true,
+    "compileHotReLoad": false,
+    "useMultiFrameRuntime": false,
+    "useApiHook": true,
+    "babelSetting": {
+      "ignore": [],
+      "disablePlugins": [],
+      "outputPath": ""
+    },
+    "enableEngineNative": false,
+    "useIsolateContext": true,
+    "useCompilerModule": true,
+    "userConfirmedUseCompilerModuleSwitch": false,
+    "packNpmManually": false,
+    "packNpmRelationList": [],
+    "minifyWXSS": true
+  },
+  "compileType": "miniprogram",
+  "libVersion": "2.8.2",
+  "appid": "wx25953188946b3993",
+  "projectname": "fumaolaile",
+  "cloudfunctionTemplateRoot": "",
+  "watchOptions": {
+    "ignore": []
+  },
+  "debugOptions": {
+    "hidedInDevtools": []
+  },
+  "scripts": {},
+  "simulatorType": "wechat",
+  "simulatorPluginLibVersion": {},
+  "condition": {
+    "plugin": {
+      "list": []
+    },
+    "game": {
+      "list": []
+    },
+    "gamePlugin": {
+      "list": []
+    },
+    "miniprogram": {
+      "list": [
+        {
+          "id": 0,
+          "name": "pages/mine/mine",
+          "pathName": "pages/mine/mine",
+          "query": "",
+          "scene": 1011
+        },
+        {
+          "id": 1,
+          "name": "pages/login/login",
+          "pathName": "pages/login/login",
+          "query": "",
+          "scene": 1011
+        },
+        {
+          "id": 2,
+          "name": "pages/index/index",
+          "pathName": "pages/index/index",
+          "query": "q=377406",
+          "scene": 1007
+        },
+        {
+          "id": 3,
+          "name": "首页",
+          "pathName": "pages/home/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "pages/home/index",
+          "pathName": "pages/home/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": 5,
+          "name": "点单页面",
+          "pathName": "pages/orderOrPayment/orderOrPayment",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": 6,
+          "name": "店铺详情",
+          "pathName": "pages/storeDetails/storeDetails",
+          "query": "store_id=2",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "我的订单",
+          "pathName": "pages/myorder/myorder",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "城市定位",
+          "pathName": "pages/citys/citys",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "支付页面",
+          "pathName": "pages/pay/pay",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "pages/login/login",
+          "pathName": "pages/login/login",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "pages/login/login",
+          "pathName": "pages/login/login",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "APP下载页面",
+          "pathName": "pages/APP/APP",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "下载APP页",
+          "pathName": "pages/downApp/down/down",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "二维码",
+          "pathName": "pages/code/code",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": 15,
+          "name": "测试",
+          "pathName": "pages/AAA/my_ce_shi",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "提交订单",
+          "pathName": "pages/submitOrders/submitOrders",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": 17,
+          "name": "登录页",
+          "pathName": "pages/login/login",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": 18,
+          "name": "登录授权页",
+          "pathName": "pages/index/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": 19,
+          "name": "注册页",
+          "pathName": "pages/index/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "添加手机号",
+          "pathName": "pages/registered/registered",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "pages/Paid/Paid",
+          "pathName": "pages/Paid/Paid",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": 22,
+          "name": "桌码调试",
+          "pathName": "pages/storeDetails/storeDetails",
+          "query": "q=329664",
+          "scene": 1011
+        },
+        {
+          "id": 23,
+          "name": "店铺消费码",
+          "pathName": "pages/storeDetails/storeDetails",
+          "query": "parameter=172253",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "提交订单页面",
+          "pathName": "pages/submitOrders/submitOrders",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": 25,
+          "name": "唤起微信支付页面",
+          "pathName": "pages/payApp/pay",
+          "query": "order_id=359274",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "pages/me/me",
+          "pathName": "pages/me/me",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "pages/coupon/coupon",
+          "pathName": "pages/coupon/coupon",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "pages/me/me",
+          "pathName": "pages/me/me",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": 29,
+          "name": "pages/payResult/payResult",
+          "pathName": "pages/payResult/payResult",
+          "query": "order_id=384127",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "pages/a/a",
+          "pathName": "pages/APP/APP",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "pay",
+          "pathName": "pages/pay/pay",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "pages/bigPicture/bigPicture",
+          "pathName": "pages/bigPicture/bigPicture",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "pages/orderOrPayment/orderOrPayment",
+          "pathName": "pages/orderOrPayment/orderOrPayment",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "pages/webview/webview",
+          "pathName": "pages/webview/webview",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "pages/selectCoupon/selectCoupon",
+          "pathName": "pages/selectCoupon/selectCoupon",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "pages/code/code",
+          "pathName": "pages/code/code",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "pages/refund/refund",
+          "pathName": "pages/refund/refund",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "pages/coupon/coupon",
+          "pathName": "pages/coupon/coupon",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "pages/evaluate/evaluate",
+          "pathName": "pages/evaluate/evaluate",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "pages/refundProcess/refundProcess",
+          "pathName": "pages/refundProcess/refundProcess",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": 41,
+          "name": "pages/businessCheck/businessCheck",
+          "pathName": "pages/businessCheck/businessCheck",
+          "query": "collect_id=33&store_id=2",
+          "scene": null
+        },
+        {
+          "id": 42,
+          "name": "pages/storeOrder/storeOrder",
+          "pathName": "pages/storeOrder/storeOrder",
+          "query": "collect_id=1",
+          "scene": null
+        },
+        {
+          "id": 43,
+          "name": "pages/orderDetail/orderDetail",
+          "pathName": "pages/orderDetail/orderDetail",
+          "query": "collect_id=5",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "pages/payment/payment",
+          "pathName": "pages/payment/payment",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "pages/payApp/pay",
+          "pathName": "pages/payApp/pay",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": 46,
+          "name": "pages/businessCheck/businessCheck",
+          "pathName": "pages/businessCheck/businessCheck",
+          "query": "collect_id=5&store_id=2",
+          "scene": null
+        },
+        {
+          "id": 47,
+          "name": "pages/submitStoreOrders/submitStoreOrders",
+          "pathName": "pages/submitStoreOrders/submitStoreOrders",
+          "query": "collect_id=33",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "pages/home/index",
+          "pathName": "pages/home/index",
+          "query": "__env=release",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "pages/payResult/payResult",
+          "pathName": "pages/payResult/payResult",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/payMoney/payMoney",
+          "pathName": "pages/payMoney/payMoney",
+          "query": "",
+          "scene": null
+        }
+      ]
+    }
+  }
+}

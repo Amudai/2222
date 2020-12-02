@@ -1,0 +1,7 @@
+{
+    "usingComponents": {
+        "van-field": "@vant/weapp/field/index"
+    },
+    "navigationBarTitleText": "订单详情",
+    "enablePullDownRefresh": true
+}

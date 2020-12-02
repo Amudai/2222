@@ -1,0 +1,32 @@
+<!--component/storeDetails/specification/specification.wxml-->
+<!-- <view class="specification-container"> -->
+<van-popup show="{{ isSHow }}" z-index="1002" custom-style="border-radius:20rpx">
+  <view class="specification-absolute">
+    <view class="title_wrapper">
+      <view class="specification-name">{{goodsObject.goods_name}}</view>
+      <image class="close" bindtap="close" src="../../../images/submitOrders/close.png"></image>
+    </view>
+
+    <view wx:for='{{goodsObject.goods_attributes}}' wx:for-item='item' wx:for-index="index1">
+      <view class="specification-tiandu">{{item.attr_name}} :</view>
+      <view class="specification-grid">
+        <view class="{{selectedArr[index1][0].index2 == index2 ? 'specification-flex-item  selectArriveStoreTimeAddClass' : 'specification-flex-item'}}" wx:for='{{item.attr_value}}' wx:for-item='attr' wx:for-index="index2" data-v='{{attr}}' data-index1="{{index1}}"
+          data-index2="{{index2}}" bindtap="handleItemClick">
+          {{attr}}
+        </view>
+      </view>
+    </view>
+    <view class="specification-selected">已选规格：
+      <text wx:for="{{selectedArr}}" wx:for-item='selectedValue' wx:for-index="indexs">{{selectedValue[0].v}}<text wx:if="{{indexs != selectedArr.length-1 && selectedValue}}"> , </text>
+      </text>
+    </view>
+    <view class="specification-operate">
+      <view class="specification-operate-child1">
+        商品价格:
+        <text>￥{{goodsObject.goods_price}}</text>
+      </view>
+      <view class="specification-operate-child2" bindtap="addToCar">加入购物车</view>
+    </view>
+  </view>
+</van-popup>
+<!-- </view> -->

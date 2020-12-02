@@ -1,0 +1,47 @@
+
+.fudou-rule-top {
+  width: 718rpx;
+  height: 26rpx;
+  background: linear-gradient(180deg, #E5E5E5 0%, #E5E5E5 100%);
+  border-radius: 50rpx;
+  margin: 80rpx auto 0 auto;
+}
+
+.fudou-rule-wrapper {
+  width: 686rpx;
+  height: 727rpx;
+  background: #FFFFFF;
+  border-radius: 0px 0px 16px 16px;
+  margin: -13rpx auto 0 auto;
+}
+
+.fudou-rule-shadow {
+  width: 686rpx;
+  height: 23rpx;
+  background: linear-gradient(180deg, #E5E5E5 0%, #FFFFFF 100%);
+  opacity: 0.5;
+}
+
+.fudou-title {
+  font-size: 36rpx;
+  font-weight: 500;
+  color: #333333;
+  text-align: center;
+  margin-top: 40rpx;
+}
+
+.fudou-yi {
+  font-size: 30rpx;
+  font-weight: 500;
+  line-height: 12px;
+  color: #333333;
+  margin: 32rpx 0 20rpx 24rpx;
+}
+
+.fudou-text {
+  font-size: 28rpx;
+  font-weight: 500;
+  line-height: 46rpx;
+  color: #666666;
+  margin: 0 24rpx;
+}

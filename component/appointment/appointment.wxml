@@ -1,0 +1,8 @@
+<!--component/appointment/appointment.wxml-->
+<view class="appointmentcontainer">
+  <view class="{{arriveStore?'changeball1 colorAdd':'changeball2 colorAdd'}}" bindtap="handleClick">
+  {{arriveStore?'到店':'预约'}}</view>
+  <view bindtap="isArriveStoreHandle">到店</view>
+  <view bindtap="isNotArriveStoreHandle">预约</view>
+  <view bindtap="isNotArriveStoreHandle">外卖</view>
+</view>

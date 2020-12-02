@@ -1,0 +1,18 @@
+<import src="/template/wxml/waterfall.wxml" />
+<template is="showModal" data="{{isUser}}"></template>
+<template is="showModal" data="{{isPhone}}"></template>
+<view class="usermask" wx:if='{{isshowModal }}' bindtap='showModal'></view>
+<view class="me">
+  <view class="item-list" bindtap="jumpToFudou">
+    <text class="quan">我的福豆</text>
+    <text></text>
+  </view>
+  <!-- <view class="item-list" bindtap="jumpToCoupon">
+    <text class="quan">我的福猫礼券</text>
+    <text></text>
+  </view> -->
+  <view class="item-list" wx:if="{{isAssistant === 1}}" bindtap="jumpToStoreList">
+    <text class="quan">店铺订单列表</text>
+    <text></text>
+  </view>
+</view>

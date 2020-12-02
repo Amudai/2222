@@ -1,0 +1,19 @@
+/* pages/bigPicture/bigPicture.wxss */
+page{
+  height: 100%;
+  background: black;
+}
+view{
+  height: 70%;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+image{
+  display: inline;
+}
+swiper {
+
+height: 100%;
+
+}

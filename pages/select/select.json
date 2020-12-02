@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+    "store-item":"/component/storeItem/storeItem"
+  },
+  "navigationBarTitleText": "搜索",
+  "navigationBarTextStyle": "white"
+}

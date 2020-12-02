@@ -1,0 +1,30 @@
+<view class="fudou-rule-page">
+  <view class="fudou-rule-top"></view>
+  <view class="fudou-rule-wrapper">
+    <view class="fudou-rule-shadow"></view>
+
+    <view class="fudou-title">福豆规则说明</view>
+
+    <view class="fudou-yi">一、福豆怎么获取？</view>
+    <view class="fudou-text">
+      购买商品时，可以获得相应的福豆返还，福豆返还 数量由商家设置。
+      购买商品时，商品信息会显示返 还的福豆数量
+    </view>
+
+    <view class="fudou-yi">二、福豆用来干什么？</view>
+    <view class="fudou-text">
+      在福猫来了平台购买商品时，可使用福豆进行抵
+    </view>
+
+    <view class="fudou-yi">三、福豆使用规则</view>
+    <view class="fudou-text">
+      1、抵扣规则：100福豆可抵扣1元，每单消费用户需最少支付1元钱 
+    </view>
+    <view class="fudou-text">
+      2、单笔订单最多只能使用500000福豆进行抵扣
+    </view>
+    <view class="fudou-text">
+      3、福豆可累加使用
+    </view>
+  </view>
+</view>

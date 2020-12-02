@@ -1,0 +1,78 @@
+<view class="container">
+  <view class="wrapper flex_wrapper" bindtap="handleShowStore">
+    <view clss="store_name" wx:if="{{storeName}}">{{storeName}}</view>
+    <view clss="store_name" wx:else>请选择店铺</view>
+    <image class="arrow_bottom" src="/images/business/arrow_bottom.png"></image>
+  </view>
+  <van-action-sheet show="{{ show }}" title="切换店铺" bind:close="onClose">
+    <view class="store_wrapper">
+      <van-radio-group value="{{ storeId }}" bind:change="onChange">
+        <van-cell-group>
+          <van-cell wx:for="{{storeList}}" title="{{item.store_name}}" clickable data-name="{{item.store_name}}" bind:click="onClick" wx:key="store_id">
+            <van-radio slot="right-icon" name="{{item.store_id}}" />
+          </van-cell>
+        </van-cell-group>
+      </van-radio-group>
+    </view>
+  </van-action-sheet>
+  <van-tabs class="tabs" active="{{ active }}" bind:change="handChangeTabs">
+    <van-tab title="全部 ({{total}})" name="0">
+      <view wx:if="{{total > 0}}" class="{{item.status !== 0 ? 'wrapper' : 'wrapper pb-0'}}" wx:for="{{storeOrderList}}" wx:key="id">
+        <view bindtap="jumpToOrderDetail" data-id="{{item.id}}">
+          <view class="item_top">
+            <view class="item_top_left">
+              <image src="{{item.store_logo}}"></image>
+              <view>{{item.store_name}}</view>
+            </view>
+            <view class="item_top_right">{{item.status_name}}</view>
+          </view>
+          <view class="item_cell">桌号： {{item.table_no}}</view>
+          <view class="item_cell">订单金额： {{item.pay_amount}} 元</view>
+          <view class="item_cell">返豆个数： {{item.give_bean}} 个</view>
+          <view class="item_cell">下单时间： {{item.created_at}}</view>
+        </view>
+        <view class="van-hairline--top" wx:if="{{item.status === 0}}"></view>
+        <view class="cancle_btn" data-id="{{item.id}}" bindtap="handleCanelOrder" wx:if="{{item.status === 0}}">取消订单</view>
+      </view>
+      <image class="bg" wx:if="{{total == 0}}" src="../../images/business/bg.png"></image>
+    </van-tab>
+    <van-tab title="待付款 ({{waitPayNum}})" name="1">
+       <view wx:if="{{waitPayNum > 0}}"  class="{{item.status !== 0 ? 'wrapper' : 'wrapper pb-0'}}" wx:for="{{storeToPayOrderList}}" wx:key="id">
+        <view bindtap="jumpToOrderDetail" data-id="{{item.id}}">
+          <view class="item_top">
+            <view class="item_top_left">
+              <image src="{{item.store_logo}}"></image>
+              <view>{{item.store_name}}</view>
+            </view>
+            <view class="item_top_right">{{item.status_name}}</view>
+          </view>
+          <view class="item_cell">桌号： {{item.table_no}}</view>
+          <view class="item_cell">订单金额： {{item.pay_amount}} 元</view>
+          <view class="item_cell">返豆个数： {{item.give_bean}} 个</view>
+          <view class="item_cell">下单时间： {{item.created_at}}</view>
+        </view>
+        <view class="van-hairline--top"></view>
+        <view class="cancle_btn" data-id="{{item.id}}" bindtap="handleCanelOrder">取消订单</view>
+      </view>
+      <image class="bg" wx:if="{{waitPayNum == 0}}" src="../../images/business/bg.png"></image>
+    </van-tab>
+    <van-tab title="已取消 ({{cancelNum}})" name="3">
+      <view wx:if="{{cancelNum > 0}}"  class="{{item.status !== 0 ? 'wrapper' : 'wrapper pb-0'}}" wx:for="{{storeCancelOrderList}}" wx:key="id">
+        <view bindtap="jumpToOrderDetail" data-id="{{item.id}}">
+          <view class="item_top">
+            <view class="item_top_left">
+              <image src="{{item.store_logo}}"></image>
+              <view>{{item.store_name}}</view>
+            </view>
+            <view class="item_top_right">{{item.status_name}}</view>
+          </view>
+          <view class="item_cell">桌号： {{item.table_no}}</view>
+          <view class="item_cell">订单金额： {{item.pay_amount}} 元</view>
+          <view class="item_cell">返豆个数： {{item.give_bean}} 个</view>
+          <view class="item_cell">下单时间： {{item.created_at}}</view>
+        </view>
+      </view>
+      <image class="bg" wx:if="{{cancelNum == 0}}" src="../../images/business/bg.png"></image>
+    </van-tab>
+  </van-tabs>
+</view>

@@ -1,0 +1,127 @@
+/* component/storeDetails/specification/specification.wxss */
+
+.specification-container{
+  height: 100%;
+  width: 100%;
+  background:rgba(0,0,0,.2);
+  position: fixed;
+  top: 0;
+  left:0;
+  z-index: 100;
+}
+.specification-absolute{
+  width:560rpx;
+  /* min-height:607rpx; */
+  background:rgba(255,255,255,1);
+  border-radius:20rpx !important;
+  /* position: absolute;
+  bottom: 320rpx;
+  left: 50%; */
+  /* transform: translateX(-50%); */
+  padding-top: 68rpx;
+  /* padding-left:30rpx;
+  padding-right:30rpx; */
+  box-sizing: border-box;
+}
+.title_wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between
+}
+.close {
+  width: 60rpx;
+  height: 60rpx;
+  margin: -100rpx 10rpx 0 0;
+}
+.specification-name{
+  height:29rpx;
+  font-size:30rpx;
+  font-family:PingFang SC;
+  font-weight:500;
+  color:rgba(34,34,34,1);
+  line-height:29rpx;
+  margin-bottom: 19rpx;
+  margin-left: 30rpx;
+}
+.specification-tiandu{
+  height:23rpx;
+  font-size:24rpx;
+  font-family:PingFang SC;
+  font-weight:500;
+  color:rgba(153,153,153,1);
+  line-height:23rpx;
+  margin-left: 30rpx;
+  margin-bottom: 30rpx;
+}
+.specification-grid{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 25rpx;
+  padding: 0 30rpx;
+  margin-bottom: 30rpx;
+  box-sizing: border-box;
+}
+.specification-grid view{
+  width:150rpx;
+  height:54rpx;
+  background:rgba(229,229,229,.5);
+  /* opacity:0.5; */
+  border-radius:5rpx;
+  line-height: 54rpx;
+  text-align: center;
+  font-size:26rpx;
+  font-family:PingFang SC;
+  font-weight:500;
+  color:rgba(34,34,34,1);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.specification-selected{
+  height:50rpx;
+  background:rgba(0,0,0,0.03);
+  font-size:24rpx;
+  font-family:PingFang SC;
+  font-weight:400;
+  color:rgba(85,85,85,1);
+  line-height:48rpx;
+  text-indent: 30rpx;
+}
+.specification-operate{
+  height: 88rpx;
+  display: flex;
+  padding: 0 30rpx;
+  box-sizing: border-box;
+  align-items: center;
+}
+.specification-operate-child2{
+  width:130rpx;
+  height:42rpx;
+  background:linear-gradient(-90deg,rgba(255,1,3,1),rgba(255,48,96,1));
+  border-radius:21rpx;
+  font-size:22rpx;
+  font-family:PingFang SC;
+  font-weight:500;
+  color:rgba(255,255,255,1);
+  text-align: center;
+  line-height: 42rpx;
+}
+.specification-operate-child1{
+  flex: 1;
+  font-size:30rpx;
+  font-family:PingFang SC;
+  font-weight:500;
+  color:rgba(34,34,34,1);
+}
+.specification-operate-child1>text{
+  font-size:30rpx;
+  font-family:PingFang SC;
+  font-weight:500;
+  color:rgba(255, 39, 78, 1);
+  line-height:48rpx;
+  margin-left: 15rpx;
+}
+.selectArriveStoreTimeAddClass{
+  background:rgba(255,207,209,1) !important;
+  color:rgba(253,13,26,1) !important;
+}

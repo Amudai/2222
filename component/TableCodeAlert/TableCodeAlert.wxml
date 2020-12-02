@@ -1,0 +1,11 @@
+<!--component/TableCodeAlert/TableCodeAlert.wxml-->
+<view class="table-code-alert-father">
+  <view class="table-code-alert-child">
+    <view class="title">是否确认桌码</view>
+    <view class="zuohao">当前桌号：{{tablenumber}}</view>
+    <view class="flexbox but">
+      <view class="cancel" bindtap="handleClickCancel">取消</view>
+      <view class="confirm" bindtap="handleClick">确定</view>
+    </view>
+  </view>
+</view>

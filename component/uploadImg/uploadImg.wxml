@@ -1,0 +1,9 @@
+<view class="container">
+  <view class="images_wrapper" wx:for="{{images}}" wx:key="index" wx:for-index='index'>
+    <image class="error" src="../../images/eva/error.png" mode="aspectFill" data-index="{{index}}" bindtap="deleteImage"></image>
+    <image class="images" src="{{item}}" mode="aspectFill" bindtap="previewIamge"></image>
+  </view>
+  <view class="img_wrapper" bindtap="chooseImage" wx:if="{{images.length < 3}}">
+    <image class="plus" src="../../images/components/plus.png"></image>
+  </view>
+</view>

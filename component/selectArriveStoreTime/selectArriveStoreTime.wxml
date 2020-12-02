@@ -1,0 +1,23 @@
+<!--component/selectArriveStoreTime/selectArriveStoreTime.wxml-->
+<view class="selectArriveTimeContainer" wx:if='{{arriveTimeArr.length > 0}}'>
+  <view class="leave" bindtap="close"></view>
+  <view class="absolute">
+    <view class="title">预计到店时间</view>
+    <view class="content">
+      <view 
+      class="{{itemName.can_choose==0?'item can_choose_no':current==idx ? 'item selectArriveStoreTimeAddClass' : 'item'}}"   
+      wx:for="{{arriveTimeArr}}" 
+      wx:for-index="idx" 
+      wx:for-item="itemName" 
+      wx:key='idx' 
+      data-index="{{idx}}" 
+      data-text="{{itemName.appointment_time}}"   
+      data-canchoose='{{itemName.can_choose}}'  
+      bindtap="handleItemClick" 
+      >
+        {{itemName.appointment_time}}
+      </view>
+    </view>
+    <view class="msg">如需预约非当日时间请联系商家。</view>
+  </view>
+</view>

@@ -1,0 +1,122 @@
+.container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+}
+
+.store_name {
+  color: #333;
+  font-size: 30rpx;
+}
+
+.van-hairline--left {
+  height: 100rpx;
+  margin-right: 40rpx;
+}
+
+.code_img {
+  width: 48rpx;
+  height: 48rpx;
+  margin-bottom: 10rpx;
+}
+
+.code_tips {
+  font-size: 24rpx;
+  color: #333;
+}
+
+.order_status {
+  color: #666;
+  font-size: 24rpx;
+}
+
+.goods_info {
+  width: 100%;
+  height: 138rpx;
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1rpx solid #E5E5E5; 
+}
+
+.goods_name {
+  font-size: 28rpx;
+  color: #333;
+  margin-top: 30rpx;
+}
+
+.goods_num {
+  flex-direction: row-reverse;
+  font-size: 24rpx;
+  color: #666;
+  margin-top: 14rpx;
+}
+
+.show_more {
+  width: 100%;
+  height: 104rpx;
+  border-bottom: 1rpx dashed #C6C6C6;
+}
+
+.left_ball {
+  width: 26rpx;
+  height: 26rpx;
+  border-radius: 50%;
+  background: #F5F5F5;
+  margin-left: -36rpx;
+  margin-top: -16rpx;
+}
+
+.right_ball {
+  float: right;
+  width: 26rpx;
+  height: 26rpx;
+  border-radius: 50%;
+  background: #F5F5F5;
+  margin-right: -36rpx;
+  margin-top: -25rpx;
+}
+
+.goods_money {
+  font-size: 30rpx;
+  color: #333;
+}
+
+.order_cell {
+  width: 100%;
+  height: 85rpx;
+  border-bottom: 1rpx solid #E5E5E5;
+}
+
+.cancle-btn {
+  width: 340rpx;
+  height: 88rpx;
+  background: #FB963E;
+  border-radius: 16rpx;
+  color: #fff
+}
+
+.print-btn {
+  width: 340rpx;
+  height: 88rpx;
+  background: #FC0D1A;
+  border-radius: 16rpx;
+  color: #fff
+}
+
+.long {
+  width: 708rpx;
+}
+
+.code_img_big {
+  width: 500rpx;
+  height: 500rpx;
+}
+
+.code_img_tips {
+  font-size: 36rpx;
+  color: #fff;
+  margin-top: 20rpx;
+  text-align: center;
+}

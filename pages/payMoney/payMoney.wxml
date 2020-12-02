@@ -1,0 +1,58 @@
+<view class="pay-money-wrapper">
+  <view class="pay-store-wrapper" bindtap="jumpToStore">
+    <view class="pay-store-tips">付款给</view>
+    <view class="pay-store-info">
+      <view class="pay-store-name">{{storeInfo.store_name}}</view>
+      <view class="pay-store-jump" style="color: #666">
+        进入店铺
+        <van-icon style="margin-left: 20rpx" name="arrow" />
+      </view>
+    </view>
+  </view>
+  <view class="pay-store-wrapper">
+    <!--油枪选择-->
+    <van-cell title="油枪选择" title-class="cell-title" is-link bind:tap="showPopup" border="{{false}}" />
+    <van-popup show="{{ show }}" round position="bottom" custom-style="height: 30%;" bind:close="onClose">
+      <van-picker item-height="30" show-toolbar default-index="{{0}}" active-class="active-red" title="请选择油枪号"
+        toolbar-class="toolbar-class" columns="{{ columns }}" confirm-button-text="确定" cancel-button-text=""
+        bind:change="onChange" bind:confirm="onConfirm" bind:cancel="onCancel"></van-picker>
+    </van-popup>
+  </view>
+  <view class="pay-store-wrapper">
+    <view class="pay-store-tips">金额</view>    
+    <view class="pay-money-box">
+      <view class="pay-money-icon">￥</view>
+      <van-field bind:change="handleChangeMoney" value="{{payMoney}}" type="digit" clearable auto-focus
+        placeholder="请输入付款金额" placeholder-style="font-size: 30rpx;color: #BBB"
+        custom-style="font-size: 80rpx; color:#333;" />
+    </view>
+  </view>
+
+  <!-- 付款确认 -->
+  <van-dialog use-slot show="{{ showDialog }}" confirm-button-color="#D63341" show-cancel-button asyncClose
+    bind:close="onCloseDialog" bind:confirm="handleSelectCan">
+    <view class="pay-check-money">
+      付款金额：
+      <text style="color:#DB3644; font-weight: 600">{{showAmount}}</text>
+    </view>
+    <view class="pay-checkbox">
+      <van-checkbox value="{{ isCheckFudou }}" checked-color="#D63341" bind:change="handleChangeIsFudou">
+        <view class="pay-check-fudou">
+          本单可使用
+          <text>{{discountBeans}}个</text>
+          福豆抵扣
+          <text>{{discountBeans / 100}}元</text>
+        </view>
+      </van-checkbox>
+    </view>
+    <view class="pay-balance">账户福豆余额：{{fudouDetail.available}}个</view>
+  </van-dialog>
+
+  
+
+  <view class="ad-img-wrapper">
+    <view class="pay-btn" wx:if="{{payCheck}}" bindtap="handleOpenDialog">立即付款</view>
+    <view class="pay-btn" wx:else style="background: #D2D7E3">立即付款</view>
+    <image src="{{dfm_ad_img}}"></image>
+  </view>
+</view>

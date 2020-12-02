@@ -1,0 +1,22 @@
+<!--component/storeItem.wxml-->
+<view class="store-item" bindtap="toStoreDetail" data-index='{{item}}' wx:for="{{stores}}" wx:key="item">
+	<image mode="aspectFill" src="{{item.store_logo?item.store_logo:'../../images/noImg.png'}}" lazy-load="true" class="store-item-img" />
+	<view class="store-item-middle">
+		<view class="store-name">{{item.store_name}}</view>
+		<view class="store-tips">
+			消费1元平台送约
+			<text style="color: #DE1425">{{item.one_beans}}福豆</text>
+		</view>
+		<text class="">{{item.store_area}} {{item.store_desc}}</text>
+		<text class="">距您{{item.distance}}公里</text>
+		<view class="flex">
+			<view class="store-item-tag-kong" wx:for="{{item.list_store_tag}}" wx:for-item="items" wx:key="index">{{items.tag_name}}</view>
+		</view>
+	</view>
+	<view class="store-item-right">
+		<view class="store-item-tag">到店</view>
+		<view class="store-item-tag bule" wx:if="{{item.takeoutfood == 1}}">外卖</view>
+		<view class="store-item-tag yellow" wx:if="{{item.appointment_switch ==1}}">预约</view>
+		<!-- <view class="store-item-tag-kong" wx:for="{{item.list_store_tag}}" wx:for-item="items" wx:key="index">{{items.tag_name}}</view> -->
+	</view>
+</view>
